@@ -23,10 +23,10 @@ if (serverBuild) {
 
 export default defineConfig({
   // base must match the GitHub repo name exactly (case-sensitive).
-  // Repo: https://github.com/DarkXero-dev/ReafactorME
-  // Live draft URL: https://darkxero-dev.github.io/ReafactorME/
+  // Repo: https://github.com/DarkXero-dev/RefactorME
+  // Live draft URL: https://darkxero-dev.github.io/RefactorME/
   site: serverBuild ? 'https://refactor.me' : 'https://darkxero-dev.github.io',
-  base: serverBuild ? '/' : '/ReafactorME/',
+  base: serverBuild ? '/' : '/RefactorME/',
   output: serverBuild ? 'server' : 'static',
   adapter,
   trailingSlash: 'ignore',

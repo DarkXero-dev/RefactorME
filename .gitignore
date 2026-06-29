@@ -5,6 +5,9 @@ node_modules/
 dist/
 .astro/
 
+# design exploration previews (not part of the deployed site)
+previews/
+
 # host adapters
 .vercel/
 .netlify/

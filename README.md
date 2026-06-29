@@ -2,4 +2,4 @@
 
 Design Concept for future Refactor.me site by DarkXero.
 
-![Refactor.me design concept](Screenshot.webp)
+![Refactor.me design concept](Preview.webp)

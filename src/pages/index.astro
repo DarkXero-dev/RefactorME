@@ -6,6 +6,7 @@ import PreviewGenerator from '../components/PreviewGenerator.astro';
 import WhatYouGet from '../components/WhatYouGet.astro';
 import HowItWorks from '../components/HowItWorks.astro';
 import WhatWeBuild from '../components/WhatWeBuild.astro';
+import SamplesSection from '../components/SamplesSection.astro';
 import Pricing from '../components/Pricing.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
@@ -28,8 +29,8 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
         <div class="links">
           <a href="#fix">Diagnostics</a>
           <a href="#try">Live preview</a>
-          <a href="#get">What you get</a>
-          <a href="#build">What we build</a>
+          <a href="#build">What we rebuild</a>
+          <a href="#samples">Samples</a>
           <a href="#pricing">Pricing</a>
         </div>
         <span class={`pill ${online ? 'on' : 'off'}`}>
@@ -47,6 +48,7 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
     <WhatYouGet />
     <HowItWorks />
     <WhatWeBuild />
+    <SamplesSection />
     <Pricing />
     <Contact />
   </main>

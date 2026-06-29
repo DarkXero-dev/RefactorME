@@ -1,0 +1,96 @@
+---
+const base = import.meta.env.BASE_URL;
+// the full set; the client picks 3 at random on every page load
+const samples = [
+  { n: '01', name: 'Midnight Indigo' },
+  { n: '02', name: 'Paper Editorial' },
+  { n: '03', name: 'Brutalist Pop' },
+  { n: '04', name: 'Pastel Soft' },
+  { n: '05', name: 'Cyber Neon' },
+  { n: '06', name: 'Forest Organic' },
+  { n: '07', name: 'Luxury Noir' },
+  { n: '08', name: 'Sunset Gradient' },
+  { n: '09', name: 'Corporate Clean' },
+  { n: '10', name: 'Retro 70s' },
+  { n: '11', name: 'Mono Contrast' },
+  { n: '12', name: 'Aurora Dark' },
+];
+---
+
+<section id="samples">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="tag">samples</span>
+        <h2>A taste of the <span class="grad">range</span>.</h2>
+      </div>
+      <p>We build with the full web stack: Astro, Vite, HTML, CSS, and JavaScript, no bloated page builders. Hand-written and fast, sharp from desktop to phone.</p>
+    </div>
+
+    <div class="thumbs reveal">
+      {[0, 1, 2].map(() => (
+        <a class="thumb panel" target="_blank" rel="noopener">
+          <span class="frame"><iframe loading="lazy" scrolling="no" tabindex="-1"></iframe></span>
+          <span class="cap"><span class="cap-name"></span><span class="go" aria-hidden="true">&#8599;</span></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .thumbs{display:grid;gap:1.1rem}
+  @media (min-width:720px){.thumbs{grid-template-columns:repeat(3,1fr)}}
+  .thumb{
+    display:block;overflow:hidden;padding:0;text-decoration:none;
+    transition:transform .22s var(--ease), border-color .22s var(--ease), box-shadow .22s var(--ease);
+  }
+  .thumb:hover{transform:translateY(-4px);border-color:rgba(79,140,255,.45);box-shadow:var(--shadow)}
+  .frame{
+    position:relative;display:block;width:100%;
+    aspect-ratio:1280 / 800;overflow:hidden;background:#0a0c12;
+    border-bottom:1px solid var(--line);
+  }
+  .frame iframe{
+    position:absolute;top:0;left:0;width:1280px;height:800px;border:0;
+    transform-origin:0 0;transform:scale(.25);pointer-events:none;
+  }
+  .cap{
+    display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+    padding:.8rem 1rem;font-weight:600;font-size:.92rem;color:var(--text);
+  }
+  .cap .go{color:var(--muted)}
+  .thumb:hover .cap .go{color:var(--cyan)}
+</style>
+
+<script define:vars={{ base, samples }}>
+  // Fisher-Yates shuffle, take 3, populate the slots. Runs on every load.
+  const pool = samples.slice();
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  const chosen = pool.slice(0, 3);
+  const slots = document.querySelectorAll('#samples .thumb');
+  slots.forEach((a, i) => {
+    const s = chosen[i];
+    if (!s) return;
+    const url = `${base}previews/${s.n}.html`;
+    a.href = url;
+    a.setAttribute('aria-label', `Open the ${s.name} sample`);
+    const frame = a.querySelector('iframe');
+    frame.title = s.name;
+    frame.src = url;
+    a.querySelector('.cap-name').textContent = s.name;
+  });
+
+  function scaleThumbs() {
+    document.querySelectorAll('#samples .frame').forEach((frame) => {
+      const f = frame.querySelector('iframe');
+      if (f) f.style.transform = `scale(${frame.clientWidth / 1280})`;
+    });
+  }
+  window.addEventListener('load', scaleThumbs);
+  window.addEventListener('resize', scaleThumbs);
+  setTimeout(scaleThumbs, 400);
+</script>

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lorem Ipsum | Corporate Clean</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#ffffff;
+    --grey:#f2f5f9;
+    --navy:#1b3a6b;
+    --sky:#2f86d6;
+    --ink:#1f2733;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'IBM Plex Sans',sans-serif;
+    color:var(--ink);background:var(--white);
+    line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+
+  /* Header */
+  header{border-bottom:1px solid #e3e9f1;position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);z-index:20}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .wordmark{
+    font-family:'IBM Plex Serif',serif;font-weight:700;font-size:1.3rem;color:var(--navy);
+    display:flex;align-items:center;gap:10px;
+  }
+  .wordmark .dot{width:14px;height:14px;background:var(--sky);border-radius:3px;display:inline-block}
+  nav ul{list-style:none;display:flex;gap:32px;align-items:center}
+  nav a{font-size:.94rem;font-weight:500;color:#46535f;transition:color .2s}
+  nav a:hover{color:var(--navy)}
+  .nav-cta{
+    background:var(--navy);color:#fff;padding:9px 20px;border-radius:6px;font-weight:600;font-size:.9rem;
+    transition:background .2s;
+  }
+  .nav-cta:hover{background:#16315c;color:#fff}
+
+  /* Hero */
+  .hero{padding:96px 0 80px}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
+  .tag{
+    display:inline-block;background:#e7f0fb;color:var(--sky);
+    font-weight:600;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;
+    padding:6px 14px;border-radius:5px;margin-bottom:24px;
+  }
+  .hero h1{
+    font-family:'IBM Plex Serif',serif;font-weight:700;
+    font-size:clamp(2.2rem,4.4vw,3.4rem);line-height:1.12;color:var(--navy);
+    letter-spacing:-.01em;margin-bottom:22px;
+  }
+  .hero p.sub{font-size:1.12rem;color:#46535f;max-width:46ch;margin-bottom:34px}
+  .actions{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{
+    display:inline-block;font-weight:600;font-size:1rem;padding:14px 30px;border-radius:7px;
+    transition:transform .2s,background .2s;
+  }
+  .btn-primary{background:var(--sky);color:#fff;box-shadow:0 8px 22px rgba(47,134,214,.28)}
+  .btn-primary:hover{background:#2675bf;transform:translateY(-2px)}
+  .btn-ghost{border:1px solid #cdd8e6;color:var(--navy)}
+  .btn-ghost:hover{border-color:var(--navy)}
+
+  .hero-visual{
+    background:linear-gradient(160deg,#234a86,var(--navy));
+    border-radius:14px;padding:34px;color:#fff;box-shadow:0 24px 60px rgba(27,58,107,.28);
+  }
+  .hero-visual .vrow{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:.92rem}
+  .hero-visual .vrow:last-child{border-bottom:none}
+  .hero-visual .vrow span:last-child{color:#8fc0f0;font-weight:600}
+  .hero-visual h4{font-family:'IBM Plex Serif',serif;font-size:1.05rem;margin-bottom:8px}
+
+  /* Stats strip */
+  .stats{background:var(--grey);border-top:1px solid #e3e9f1;border-bottom:1px solid #e3e9f1}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding:54px 0}
+  .stat{text-align:center}
+  .stat .fig{font-family:'IBM Plex Serif',serif;font-weight:700;font-size:2.4rem;color:var(--navy);line-height:1}
+  .stat .lbl{font-size:.9rem;color:#5a6675;margin-top:8px}
+
+  /* Cards */
+  .features{padding:90px 0 100px}
+  .features .head{max-width:640px;margin-bottom:56px}
+  .features .head .tag{margin-bottom:18px}
+  .features h2{font-family:'IBM Plex Serif',serif;font-weight:700;font-size:2rem;color:var(--navy);margin-bottom:14px}
+  .features p.lead{color:#5a6675;font-size:1.05rem}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .card{
+    border:1px solid #e3e9f1;border-radius:12px;padding:32px 28px;background:#fff;
+    transition:box-shadow .25s,border-color .25s,transform .25s;
+  }
+  .card:hover{box-shadow:0 16px 40px rgba(27,58,107,.1);border-color:#cfe0f2;transform:translateY(-4px)}
+  .card .badge{
+    width:46px;height:46px;border-radius:10px;background:#e7f0fb;color:var(--sky);
+    display:grid;place-items:center;font-weight:700;font-family:'IBM Plex Serif',serif;font-size:1.1rem;margin-bottom:20px;
+  }
+  .card h3{font-family:'IBM Plex Serif',serif;font-weight:600;font-size:1.2rem;color:var(--navy);margin-bottom:10px}
+  .card p{color:#5a6675;font-size:.96rem}
+
+  footer{background:var(--navy);color:#cdd8e6;text-align:center;padding:40px 32px;font-size:.92rem}
+  footer .wordmark{color:#fff;justify-content:center;margin-bottom:10px}
+
+  @media(max-width:880px){
+    nav ul{display:none}
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .stats-grid{grid-template-columns:repeat(2,1fr);gap:36px}
+    .cards{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap bar">
+      <div class="wordmark"><span class="dot"></span>Lorem Ipsum</div>
+      <nav>
+        <ul>
+          <li><a href="#">Platform</a></li>
+          <li><a href="#">Solutions</a></li>
+          <li><a href="#">Resources</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#" class="nav-cta">Request demo</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="tag">Lorem ipsum dolor</span>
+        <h1>Consectetur adipiscing elit sed do eiusmod</h1>
+        <p class="sub">Tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud.</p>
+        <div class="actions">
+          <a href="#" class="btn btn-primary">Get started</a>
+          <a href="#" class="btn btn-ghost">Contact sales</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <h4>Lorem dashboard</h4>
+        <div class="vrow"><span>Veniam quis</span><span>+24.8%</span></div>
+        <div class="vrow"><span>Nostrud exercitation</span><span>1,284</span></div>
+        <div class="vrow"><span>Ullamco laboris</span><span>98.2%</span></div>
+        <div class="vrow"><span>Aliquip ex ea</span><span>+12.0%</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="wrap stats-grid">
+      <div class="stat"><div class="fig">99.9%</div><div class="lbl">Lorem uptime</div></div>
+      <div class="stat"><div class="fig">12k+</div><div class="lbl">Ipsum clients</div></div>
+      <div class="stat"><div class="fig">48ms</div><div class="lbl">Dolor latency</div></div>
+      <div class="stat"><div class="fig">24/7</div><div class="lbl">Amet support</div></div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="wrap">
+      <div class="head">
+        <span class="tag">Capabilities</span>
+        <h2>Sed ut perspiciatis unde omnis</h2>
+        <p class="lead">Iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="badge">01</div>
+          <h3>Quia voluptas</h3>
+          <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit consequuntur.</p>
+        </article>
+        <article class="card">
+          <div class="badge">02</div>
+          <h3>Magni dolores</h3>
+          <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit.</p>
+        </article>
+        <article class="card">
+          <div class="badge">03</div>
+          <h3>Eius modi</h3>
+          <p>Tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem ut enim minima.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wordmark"><span class="dot"></span>Lorem Ipsum</div>
+    &copy; Lorem Ipsum Corporation. All rights reserved.
+  </footer>
+</body>
+</html>

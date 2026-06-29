@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lorem Ipsum, Brutalist Pop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#ffffff;
+    --ink:#111111;
+    --cobalt:#1f44ff;
+    --yellow:#ffd400;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+  body{
+    background:var(--white);
+    color:var(--ink);
+    font-family:"Archivo",system-ui,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+  .display{font-family:"Archivo Black",sans-serif;text-transform:uppercase;letter-spacing:-.01em}
+
+  header{border-bottom:4px solid var(--ink);background:var(--white)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+  .brand{font-family:"Archivo Black";text-transform:uppercase;font-size:1.25rem;letter-spacing:-.02em;display:flex;align-items:center;gap:12px}
+  .brand .sq{width:26px;height:26px;background:var(--cobalt);border:3px solid var(--ink)}
+  nav.links{display:flex;gap:0}
+  nav.links a{
+    font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;
+    padding:10px 18px;border:3px solid var(--ink);border-right-width:0;
+  }
+  nav.links a:last-child{border-right-width:3px}
+  nav.links a:hover{background:var(--yellow)}
+  .btn{
+    font-family:"Archivo Black";font-size:.82rem;text-transform:uppercase;letter-spacing:.02em;
+    padding:13px 22px;background:var(--cobalt);color:var(--white);
+    border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
+    transition:transform .1s ease, box-shadow .1s ease;
+    display:inline-block;
+  }
+  .btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+  .btn.alt{background:var(--yellow);color:var(--ink)}
+
+  .hero{border-bottom:4px solid var(--ink)}
+  .hero-grid{display:grid;grid-template-columns:1.6fr 1fr}
+  .hero-main{padding:64px 36px;border-right:4px solid var(--ink)}
+  .tag{display:inline-block;background:var(--ink);color:var(--white);font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.14em;padding:6px 12px;margin-bottom:26px}
+  h1{font-family:"Archivo Black";text-transform:uppercase;font-size:clamp(2.6rem,6.6vw,5.6rem);line-height:.92;letter-spacing:-.02em}
+  h1 .hl{background:var(--yellow);padding:0 .1em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  h1 .blue{color:var(--cobalt)}
+  .sub{margin-top:24px;font-size:1.15rem;font-weight:500;max-width:46ch}
+  .cta-row{margin-top:34px;display:flex;gap:18px;flex-wrap:wrap}
+  .hero-side{
+    background:var(--cobalt);color:var(--white);padding:0;
+    display:flex;flex-direction:column;
+  }
+  .hero-side .blk{padding:34px 30px;border-bottom:4px solid var(--ink)}
+  .hero-side .blk:last-child{border-bottom:none;background:var(--yellow);color:var(--ink);flex:1;display:flex;flex-direction:column;justify-content:center}
+  .hero-side .big{font-family:"Archivo Black";font-size:3.2rem;line-height:1}
+  .hero-side .lbl{font-weight:700;text-transform:uppercase;font-size:.78rem;letter-spacing:.1em;margin-top:8px}
+
+  .features{padding:0}
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+  .feat{padding:40px 30px;border-right:4px solid var(--ink);border-bottom:4px solid var(--ink);position:relative}
+  .feat:last-child{border-right:none}
+  .feat:nth-child(2){background:var(--yellow)}
+  .feat .n{font-family:"Archivo Black";font-size:2.4rem;color:var(--cobalt)}
+  .feat:nth-child(2) .n{color:var(--ink)}
+  .feat h3{font-family:"Archivo Black";text-transform:uppercase;font-size:1.3rem;margin:14px 0 12px;line-height:1.05}
+  .feat p{font-weight:500;font-size:.98rem}
+  .feat .arrow{margin-top:20px;display:inline-block;font-family:"Archivo Black";font-size:1.4rem}
+
+  .strip{background:var(--ink);color:var(--white);overflow:hidden;border-bottom:4px solid var(--ink)}
+  .marq{display:flex;white-space:nowrap;font-family:"Archivo Black";text-transform:uppercase;font-size:1.5rem;padding:16px 0;gap:40px}
+  .marq span{color:var(--yellow)}
+
+  footer{padding:30px 28px}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-weight:600;font-size:.86rem}
+
+  @media(max-width:880px){
+    nav.links{display:none}
+    .hero-grid{grid-template-columns:1fr}
+    .hero-main{border-right:none;border-bottom:4px solid var(--ink)}
+    .feat-grid{grid-template-columns:1fr}
+    .feat{border-right:none}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand"><span class="sq"></span> Lorem Ipsum</div>
+      <nav class="links">
+        <a href="#">Dolor</a>
+        <a href="#">Amet</a>
+        <a href="#">Tempor</a>
+        <a href="#">Aliqua</a>
+      </nav>
+      <a href="#" class="btn">Start Now</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-main">
+          <span class="tag">Lorem Ipsum Dolor</span>
+          <h1>Sed ut <span class="hl">perspic</span> <span class="blue">unde</span> omnis iste.</h1>
+          <p class="sub">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit consequuntur.</p>
+          <div class="cta-row">
+            <a href="#" class="btn">Lorem Ipsum</a>
+            <a href="#" class="btn alt">Dolor Sit</a>
+          </div>
+        </div>
+        <aside class="hero-side">
+          <div class="blk">
+            <div class="big">99+</div>
+            <div class="lbl">Voluptatem accusantium</div>
+          </div>
+          <div class="blk">
+            <div class="big">XII</div>
+            <div class="lbl">Architecto beatae vitae</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="strip">
+      <div class="marq">
+        LOREM IPSUM <span>/</span> DOLOR SIT AMET <span>/</span> CONSECTETUR <span>/</span> ADIPISCING ELIT <span>/</span> SED DO EIUSMOD <span>/</span> TEMPOR INCIDIDUNT <span>/</span>
+      </div>
+    </div>
+
+    <section class="features">
+      <div class="feat-grid">
+        <article class="feat">
+          <div class="n">01</div>
+          <h3>Voluptatem</h3>
+          <p>Doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore veritatis.</p>
+          <span class="arrow">&rarr;</span>
+        </article>
+        <article class="feat">
+          <div class="n">02</div>
+          <h3>Architecto</h3>
+          <p>Dicta sunt explicabo nemo enim ipsam voluptatem quia voluptas sit aspernatur.</p>
+          <span class="arrow">&rarr;</span>
+        </article>
+        <article class="feat">
+          <div class="n">03</div>
+          <h3>Magni Dolores</h3>
+          <p>Qui ratione voluptatem sequi nesciunt neque porro quisquam est qui dolorem.</p>
+          <span class="arrow">&rarr;</span>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <span>(c) LOREM IPSUM. CONSECTETUR ADIPISCING ELIT.</span>
+      <span>DOLOR / SIT / AMET</span>
+    </div>
+  </footer>
+</body>
+</html>

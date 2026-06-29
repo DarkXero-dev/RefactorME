@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lorem Ipsum, Paper Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f6f1e7;
+    --ink:#211c15;
+    --terra:#c4623f;
+    --muted:#6e6253;
+    --rule:rgba(33,28,21,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:"Work Sans",system-ui,sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 40px}
+
+  header{border-bottom:1px solid var(--ink)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:84px}
+  .brand{font-family:"Fraunces";font-weight:700;font-size:1.5rem;letter-spacing:-.01em}
+  .brand em{font-style:italic;color:var(--terra)}
+  nav.links{display:flex;gap:34px;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
+  nav.links a:hover{color:var(--terra)}
+  .subscribe{
+    font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+    border:1px solid var(--ink);padding:10px 18px;
+    transition:background .15s ease,color .15s ease;
+  }
+  .subscribe:hover{background:var(--ink);color:var(--cream)}
+
+  .hero{padding:70px 0 56px;border-bottom:1px solid var(--ink)}
+  .kicker{font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);font-weight:600;margin-bottom:26px}
+  .hero-grid{display:grid;grid-template-columns:1.55fr .95fr;gap:54px;align-items:end}
+  h1{
+    font-family:"Fraunces";font-weight:600;
+    font-size:clamp(3rem,7.2vw,6.2rem);line-height:.96;letter-spacing:-.02em;
+  }
+  h1 em{font-style:italic;color:var(--terra);font-weight:500}
+  .lede{font-size:1.12rem;color:var(--muted)}
+  .lede .cta{
+    display:inline-block;margin-top:24px;
+    font-family:"Work Sans";font-weight:600;font-size:.95rem;
+    color:var(--cream);background:var(--terra);
+    padding:13px 26px;
+    transition:background .15s ease;
+  }
+  .lede .cta:hover{background:var(--ink)}
+
+  .intro{padding:64px 0;border-bottom:1px solid var(--ink)}
+  .intro-grid{display:grid;grid-template-columns:200px 1fr;gap:54px}
+  .intro-meta{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);line-height:2}
+  .intro-meta strong{display:block;color:var(--ink);font-weight:600}
+  .intro-meta .div{height:1px;background:var(--rule);margin:14px 0}
+  .body-cols{column-count:2;column-gap:46px;font-size:1.04rem;color:#3a3228}
+  .body-cols p{margin-bottom:1em}
+  .body-cols p:first-child::first-letter{
+    font-family:"Fraunces";font-weight:700;
+    float:left;font-size:4.6rem;line-height:.78;
+    padding:6px 12px 0 0;color:var(--terra);
+  }
+
+  .dispatch{padding:64px 0 90px}
+  .dispatch h2{font-family:"Fraunces";font-weight:600;font-size:1.7rem;margin-bottom:8px}
+  .dispatch h2 em{font-style:italic;color:var(--terra)}
+  .dispatch .sub{color:var(--muted);margin-bottom:40px;font-size:1rem}
+  .items{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--ink)}
+  .item{padding:30px 26px 30px 0;border-right:1px solid var(--rule)}
+  .item:last-child{border-right:none}
+  .num{font-family:"Fraunces";font-style:italic;color:var(--terra);font-size:1.3rem;margin-bottom:14px}
+  .item h3{font-family:"Fraunces";font-weight:600;font-size:1.34rem;margin-bottom:10px;line-height:1.1}
+  .item p{color:var(--muted);font-size:.98rem}
+  .item .read{display:inline-block;margin-top:16px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;border-bottom:1px solid var(--terra);color:var(--terra);padding-bottom:2px}
+
+  footer{border-top:1px solid var(--ink);padding:34px 0}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-size:.82rem;color:var(--muted)}
+  .foot .brand{font-size:1.1rem}
+
+  @media(max-width:880px){
+    nav.links{display:none}
+    .hero-grid,.intro-grid{grid-template-columns:1fr;gap:30px}
+    .body-cols{column-count:1}
+    .items{grid-template-columns:1fr}
+    .item{border-right:none;border-bottom:1px solid var(--rule)}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">Lorem <em>Ipsum</em></div>
+      <nav class="links">
+        <a href="#">Dolor</a>
+        <a href="#">Consectetur</a>
+        <a href="#">Tempor</a>
+        <a href="#">Aliqua</a>
+      </nav>
+      <a href="#" class="subscribe">Subscribe</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="kicker">Issue No. XII, Lorem Ipsum Quarterly</div>
+        <div class="hero-grid">
+          <h1>Sed ut <em>perspiciatis</em> unde omnis iste natus.</h1>
+          <div class="lede">
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.
+            <a href="#" class="cta">Read the issue</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="intro">
+      <div class="wrap intro-grid">
+        <aside class="intro-meta">
+          <strong>Words</strong> Lorem Ipsum
+          <div class="div"></div>
+          <strong>Section</strong> Dolor Sit Amet
+          <div class="div"></div>
+          <strong>Reading</strong> 6 minutes
+        </aside>
+        <div class="body-cols">
+          <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur at vero eos.</p>
+          <p>Et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate.</p>
+          <p>Non provident similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio nam libero.</p>
+          <p>Tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus omnis voluptas assumenda est.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dispatch">
+      <div class="wrap">
+        <h2>Three <em>dispatches</em> from the field</h2>
+        <p class="sub">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.</p>
+        <div class="items">
+          <article class="item">
+            <div class="num">i.</div>
+            <h3>Voluptatem accusantium</h3>
+            <p>Doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore.</p>
+            <a href="#" class="read">Read more</a>
+          </article>
+          <article class="item">
+            <div class="num">ii.</div>
+            <h3>Architecto beatae vitae</h3>
+            <p>Dicta sunt explicabo nemo enim ipsam voluptatem quia voluptas sit.</p>
+            <a href="#" class="read">Read more</a>
+          </article>
+          <article class="item">
+            <div class="num">iii.</div>
+            <h3>Magni dolores eos</h3>
+            <p>Qui ratione voluptatem sequi nesciunt neque porro quisquam est.</p>
+            <a href="#" class="read">Read more</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div class="brand">Lorem <em>Ipsum</em></div>
+      <span>(c) Consectetur adipiscing elit, sed do eiusmod tempor.</span>
+    </div>
+  </footer>
+</body>
+</html>

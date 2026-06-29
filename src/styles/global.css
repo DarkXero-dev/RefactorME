@@ -141,6 +141,52 @@ h2 .grad{
 .btn.ghost{background:transparent;border:1px solid var(--line);box-shadow:none;color:var(--text)}
 .btn.ghost:hover{border-color:var(--blue)}
 
+/* ---------- contact form ---------- */
+.cform{padding:clamp(1.4rem,4vw,2.2rem);display:grid;gap:1.1rem}
+.cform .row.two{display:grid;gap:1.1rem}
+@media (min-width:560px){.cform .row.two{grid-template-columns:1fr 1fr}}
+.cform .field{display:flex;flex-direction:column;gap:.45rem}
+.cform .lbl{font-size:.82rem;font-weight:600;color:var(--soft);letter-spacing:.01em}
+.cform .lbl em{color:var(--cyan);font-style:normal}
+.cform .lbl i{color:var(--muted);font-weight:500;font-style:normal;font-size:.92em}
+.cform input,
+.cform textarea{
+  width:100%;background:var(--base);color:var(--text);
+  border:1px solid var(--line);border-radius:11px;
+  padding:.7rem .85rem;font-family:var(--sans);font-size:.95rem;line-height:1.5;
+  transition:border-color .18s var(--ease), box-shadow .18s var(--ease);
+}
+.cform textarea{resize:vertical;min-height:7rem}
+.cform input::placeholder,
+.cform textarea::placeholder{color:var(--muted)}
+.cform input:focus,
+.cform textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,140,255,.18)}
+.cform input:invalid:not(:placeholder-shown){border-color:rgba(226,72,77,.6)}
+.cform .formnote{
+  margin:0;font-size:.88rem;color:#ff9093;
+  background:rgba(226,72,77,.1);border:1px solid rgba(226,72,77,.3);
+  border-radius:10px;padding:.7rem .9rem;
+}
+.cform .formnote.ok{color:#73e3b4;background:rgba(63,207,142,.1);border-color:rgba(63,207,142,.3)}
+.cform .actions{display:flex;justify-content:flex-end;gap:.8rem;flex-wrap:wrap}
+.cform .actions .btn{font-size:.92rem}
+/* zero the section's bottom gap so the credit's own equal padding is the
+   only space between the form and the footer separator (true vertical centering) */
+#contact{padding-bottom:0}
+#contact .credit{
+  margin:0;text-align:center;font-weight:700;color:var(--soft);
+  font-size:.95rem;letter-spacing:.01em;
+  padding-block:clamp(2.2rem, 6vw, 3.4rem);
+}
+#contact .credit .who{
+  background:var(--grad-tri);-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+#contact .credit .heart{color:#e2484d}
+@media (max-width:420px){
+  .cform .actions{flex-direction:column-reverse}
+  .cform .actions .btn{width:100%;justify-content:center}
+}
+
 /* ---------- scroll / load reveal ---------- */
 .reveal{
   opacity:0;transform:translateY(18px);

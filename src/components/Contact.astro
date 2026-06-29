@@ -3,27 +3,94 @@
 
 <section id="contact">
   <div class="wrap">
-    <div class="panel cta-box reveal">
-      <span class="tag">say hello</span>
-      <h2>Ready when <span class="grad">you are</span>.</h2>
+    <div class="sec-head">
+      <div>
+        <span class="tag">get in touch</span>
+        <h2>Ready when <span class="grad">you are</span>.</h2>
+      </div>
       <p>Tell us what you have and what you want. We take it from there.</p>
-      <a href="mailto:hello@refactor.me" class="btn big">
-        hello@refactor.me
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
     </div>
+
+    <form class="panel cform reveal" novalidate>
+      <div class="row two">
+        <label class="field">
+          <span class="lbl">Name <em>*</em></span>
+          <input name="name" type="text" required autocomplete="name" placeholder="Your name" />
+        </label>
+        <label class="field">
+          <span class="lbl">Company name <i>(if applicable)</i></span>
+          <input name="company" type="text" autocomplete="organization" placeholder="Optional" />
+        </label>
+      </div>
+
+      <label class="field">
+        <span class="lbl">Site URL <em>*</em></span>
+        <input name="url" type="text" inputmode="url" required placeholder="your-website.com" />
+      </label>
+
+      <label class="field">
+        <span class="lbl">Message <em>*</em></span>
+        <textarea name="message" rows="5" required placeholder="What do you have, and what do you want done?"></textarea>
+      </label>
+
+      <p class="formnote" role="alert" hidden></p>
+
+      <div class="actions">
+        <button type="reset" class="btn ghost">Reset</button>
+        <button type="submit" class="btn">
+          Send Message
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </form>
+
+    <p class="credit">Site Built by <span class="who">DarkXero</span> with <span class="heart" aria-label="love">&#10084;&#65039;</span></p>
   </div>
 </section>
 
-<style>
-  .cta-box{
-    padding:clamp(2rem,5vw,3.4rem);text-align:center;
-    background:
-      radial-gradient(120% 140% at 50% -20%, rgba(79,140,255,.16), transparent 60%),
-      linear-gradient(180deg, var(--panel), var(--panel-deep));
+<script>
+  const form = document.querySelector<HTMLFormElement>('.cform');
+  if (form) {
+    const note = form.querySelector<HTMLElement>('.formnote')!;
+    const show = (msg: string, ok = false) => {
+      note.textContent = msg;
+      note.classList.toggle('ok', ok);
+      note.hidden = false;
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = ((data.get('name') as string) || '').trim();
+      const company = ((data.get('company') as string) || '').trim();
+      const url = ((data.get('url') as string) || '').trim();
+      const message = ((data.get('message') as string) || '').trim();
+
+      if (!name || !url || !message) {
+        show('Please fill in your name, site URL, and message.');
+        return;
+      }
+
+      const lines = [
+        `Name: ${name}`,
+        company ? `Company: ${company}` : null,
+        `Site URL: ${url}`,
+        '',
+        message,
+      ].filter((l) => l !== null);
+
+      const href =
+        'mailto:hello@refactor.me?subject=' +
+        encodeURIComponent(`Refactor request from ${name}`) +
+        '&body=' +
+        encodeURIComponent(lines.join('\n'));
+
+      show('Opening your email app with the details filled in.', true);
+      window.location.href = href;
+    });
+
+    form.addEventListener('reset', () => {
+      note.hidden = true;
+    });
   }
-  .cta-box .tag{display:inline-block}
-  .cta-box h2{margin-bottom:.7rem}
-  .cta-box p{color:var(--muted);max-width:42ch;margin:0 auto 1.6rem}
-  .btn.big{font-size:1.05rem;padding:.85rem 1.4rem}
-</style>
+</script>

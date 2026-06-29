@@ -1,5 +1,6 @@
 ---
 const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
+const year = new Date().getFullYear();
 ---
 
 <footer>
@@ -14,14 +15,14 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
       <span class="desc">Small sites rebuilt by one person who knows what they're doing.</span>
     </div>
     <div class="right">
-      <a href="mailto:hello@refactor.me">hello@refactor.me</a>
       <span class={`status ${online ? 'on' : 'off'}`}>status: {online ? 'all systems good' : 'offline'}</span>
+      <span class="copy">&copy; {year} TechXero Inc.</span>
     </div>
   </div>
 </footer>
 
 <style>
-  footer{border-top:1px solid var(--line);padding-block:1.8rem;margin-top:2rem;color:var(--muted);font-size:.86rem}
+  footer{border-top:1px solid var(--line);padding-block:1.8rem;margin-top:0;color:var(--muted);font-size:.86rem}
   .inner{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;align-items:center;justify-content:space-between}
   .left{display:flex;flex-direction:column;gap:.4rem}
   .brand{display:flex;align-items:center;gap:.55rem;font-weight:800;font-size:1rem;color:var(--text)}
@@ -31,6 +32,7 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
   .right{display:flex;flex-direction:column;gap:.4rem;text-align:right}
   .right a{color:var(--soft)}
   .right a:hover{color:var(--cyan)}
+  .right .copy{color:var(--soft)}
   .status{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
   .status.off{color:#ff9093}
   .status.on{color:#73e3b4}

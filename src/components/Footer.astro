@@ -1,0 +1,38 @@
+---
+const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
+---
+
+<footer>
+  <div class="wrap inner">
+    <div class="left">
+      <span class="brand">
+        <span class="dot" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 17l5-5 4 3 7-8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="word">Refactor<span class="me">.me</span></span>
+      </span>
+      <span class="desc">Small sites rebuilt by one person who knows what they're doing.</span>
+    </div>
+    <div class="right">
+      <a href="mailto:hello@refactor.me">hello@refactor.me</a>
+      <span class={`status ${online ? 'on' : 'off'}`}>status: {online ? 'all systems good' : 'offline'}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer{border-top:1px solid var(--line);padding-block:1.8rem;margin-top:2rem;color:var(--muted);font-size:.86rem}
+  .inner{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;align-items:center;justify-content:space-between}
+  .left{display:flex;flex-direction:column;gap:.4rem}
+  .brand{display:flex;align-items:center;gap:.55rem;font-weight:800;font-size:1rem;color:var(--text)}
+  .brand .dot{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--grad);box-shadow:0 6px 16px rgba(79,140,255,.35)}
+  .brand .me{color:var(--cyan)}
+  .desc{color:var(--muted)}
+  .right{display:flex;flex-direction:column;gap:.4rem;text-align:right}
+  .right a{color:var(--soft)}
+  .right a:hover{color:var(--cyan)}
+  .status{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+  .status.off{color:#ff9093}
+  .status.on{color:#73e3b4}
+  @media (max-width:560px){.right{text-align:left}}
+</style>

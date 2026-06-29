@@ -1,0 +1,42 @@
+---
+---
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="tag">pricing</span>
+        <h2>Plain numbers. <span class="grad">No surprises.</span></h2>
+      </div>
+      <p>No packages, no tiers, no "contact us for enterprise pricing."</p>
+    </div>
+
+    <div class="panel pricebox reveal">
+      <div class="left">
+        <div class="k">Typical project range</div>
+        <div class="amt"><span class="cur">€</span>150 <span class="to">to</span> <span class="cur">€</span>400</div>
+        <p>Most projects land in this range, depending on what is involved. We tell you the price before we start.</p>
+      </div>
+      <div class="meta">
+        <div class="mrow"><span>Quote</span><b>before any work</b></div>
+        <div class="mrow"><span>Surprises</span><b class="good">none</b></div>
+        <div class="mrow"><span>Who you deal with</span><b>one human</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricebox{display:grid;gap:1.4rem;padding:clamp(1.6rem,4vw,2.4rem)}
+  @media (min-width:760px){.pricebox{grid-template-columns:1.3fr 1fr;align-items:center}}
+  .left .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .amt{font-weight:800;font-size:clamp(2.2rem,1.4rem+3vw,3.4rem);letter-spacing:-.03em;line-height:1;margin:.6rem 0 1rem}
+  .amt .cur{background:var(--grad-tri);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:.7em}
+  .amt .to{font-size:.4em;font-weight:600;color:var(--muted)}
+  .left p{color:var(--muted);max-width:46ch;font-size:.92rem}
+  .meta{display:grid;gap:.7rem}
+  .mrow{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem .9rem;background:var(--panel-2);border:1px solid var(--line);border-radius:11px;font-size:.86rem}
+  .mrow span{color:var(--muted)}
+  .mrow b{font-weight:700}
+  .mrow b.good{color:var(--cyan)}
+</style>

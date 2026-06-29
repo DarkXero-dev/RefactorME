@@ -1,0 +1,156 @@
+/* ============================================================
+   Refactor.me, design tokens + global primitives
+
+   Direction: a calm data dashboard. Dark cool slate lit by a
+   blue / cyan / violet accent set. Numbers and charts carry the
+   "we measure the improvement" idea. The signature is a live
+   before/after preview of a real site being rebuilt.
+   ============================================================ */
+
+:root{
+  --base:#0f1420;
+  --panel:#161d2b;
+  --panel-2:#1b2538;
+  --panel-deep:#131a27;
+
+  --blue:#4f8cff;
+  --violet:#9b6cff;
+  --cyan:#3fc6d8;
+
+  --text:#e8eef8;
+  --soft:#c2cbdc;
+  --muted:#8b97ad;
+  --line:#222c3f;
+  --line-2:#2c374d;
+
+  --grad:linear-gradient(135deg, var(--blue), var(--violet));
+  --grad-tri:linear-gradient(120deg, var(--blue), var(--cyan) 55%, var(--violet));
+
+  --mono:ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --sans:"Schibsted Grotesk", system-ui, -apple-system, sans-serif;
+
+  --max:1240px;
+  --pad:clamp(1.2rem, 3.5vw, 1.75rem);
+  --gap-section:clamp(3.4rem, 7vw, 5.5rem);
+
+  --radius:14px;
+  --radius-lg:20px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --shadow:0 30px 70px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;   /* stop iOS/Android inflating text in landscape */
+  text-size-adjust:100%;
+}
+
+/* media never overflows its container */
+img,video,canvas{max-width:100%;height:auto}
+svg{max-width:100%}
+
+body{
+  background:
+    radial-gradient(900px 500px at 85% -10%, rgba(79,140,255,.14), transparent 60%),
+    radial-gradient(700px 500px at -5% 25%, rgba(155,108,255,.12), transparent 55%),
+    var(--base);
+  background-attachment:fixed;
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:clamp(1rem, .97rem + .2vw, 1.06rem);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  min-height:100vh;
+  overflow-x:hidden;
+  overflow-wrap:break-word;
+  -webkit-tap-highlight-color:rgba(79,140,255,.2);
+}
+
+a{color:inherit;text-decoration:none}
+
+::selection{background:rgba(79,140,255,.28);color:#fff}
+
+:focus-visible{outline:2.5px solid var(--blue);outline-offset:3px;border-radius:6px}
+
+/* ---------- layout primitives ---------- */
+.wrap{
+  width:100%;
+  max-width:var(--max);
+  margin-inline:auto;
+  /* honour iOS notch / rounded-corner safe areas in landscape */
+  padding-inline:max(var(--pad), env(safe-area-inset-left), env(safe-area-inset-right));
+}
+
+section{padding-block:var(--gap-section)}
+
+/* tiny monospace utility label (allowed only for small labels) */
+.tag{
+  font-family:var(--mono);
+  font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--violet);
+  display:inline-block;margin-bottom:1rem;
+}
+
+/* section header row */
+.sec-head{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:1.4rem;margin-bottom:1.8rem;flex-wrap:wrap;
+}
+h2{
+  font-family:var(--sans);
+  font-weight:800;
+  font-size:clamp(1.7rem, 1.2rem + 1.8vw, 2.5rem);
+  letter-spacing:-.025em;
+  line-height:1.05;
+  color:var(--text);
+}
+h2 .grad{
+  background:var(--grad-tri);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.sec-head p{color:var(--muted);font-size:.9rem;max-width:40ch}
+
+/* panel: the recurring dashboard surface */
+.panel{
+  background:linear-gradient(180deg, var(--panel), var(--panel-deep));
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+}
+
+/* gradient pill button */
+.btn{
+  display:inline-flex;align-items:center;gap:.55rem;
+  background:var(--grad);color:#fff;font-weight:600;font-size:.9rem;
+  font-family:var(--sans);
+  padding:.7rem 1.1rem;border-radius:11px;border:none;cursor:pointer;
+  box-shadow:0 10px 28px rgba(79,140,255,.32);
+  transition:transform .15s var(--ease), box-shadow .15s var(--ease);
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(79,140,255,.42)}
+.btn.ghost{background:transparent;border:1px solid var(--line);box-shadow:none;color:var(--text)}
+.btn.ghost:hover{border-color:var(--blue)}
+
+/* ---------- scroll / load reveal ---------- */
+.reveal{
+  opacity:0;transform:translateY(18px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+  transition-delay:var(--reveal-delay, 0ms);
+}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- mobile ---------- */
+@media (max-width:640px){
+  /* >=16px text on form controls stops iOS Safari from zooming on focus */
+  input, select, textarea, button{font-size:16px}
+  /* comfortable tap targets on touch screens */
+  .btn{padding:.8rem 1.2rem}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+}

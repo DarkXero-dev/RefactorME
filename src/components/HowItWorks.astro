@@ -1,0 +1,49 @@
+---
+const steps = [
+  ['You reach out', 'Tell us what you have and what you need. An email is fine.'],
+  ['We make a plan', 'A few questions, then a clear plan and a fixed price.'],
+  ['You approve, we build', 'You sign off, then we rebuild it from scratch.'],
+  ['You go live', 'You get the finished site, ready to drop onto your host.'],
+];
+---
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="tag">pipeline</span>
+        <h2>Four steps. <span class="grad">No fuss.</span></h2>
+      </div>
+      <p>A simple, visible process from first email to a live site.</p>
+    </div>
+
+    <ol class="pipe">
+      {steps.map(([title, body], i) => (
+        <li class="stage reveal panel" style={`--reveal-delay:${i * 80}ms`}>
+          <div class="top">
+            <span class="node">{String(i + 1).padStart(2, '0')}</span>
+            <span class="dots" aria-hidden="true"></span>
+          </div>
+          <h3>{title}</h3>
+          <p>{body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .pipe{list-style:none;display:grid;gap:1rem}
+  @media (min-width:760px){.pipe{grid-template-columns:repeat(4,1fr)}}
+  .stage{padding:1.3rem 1.3rem 1.5rem;position:relative;transition:transform .2s var(--ease),border-color .2s var(--ease)}
+  .stage:hover{transform:translateY(-4px);border-color:rgba(79,140,255,.4)}
+  .top{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem}
+  .node{
+    flex:0 0 auto;width:2.4rem;height:2.4rem;border-radius:10px;display:grid;place-items:center;
+    font-weight:800;font-size:.92rem;color:#fff;background:var(--grad);
+    box-shadow:0 8px 18px -8px rgba(79,140,255,.6);
+  }
+  .dots{flex:1;height:2px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--line-2) 0 6px,transparent 6px 12px)}
+  .stage h3{font-weight:700;font-size:1.05rem;letter-spacing:-.01em;margin-bottom:.3rem}
+  .stage p{color:var(--muted);font-size:.86rem;margin:0}
+</style>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refactor.me (Editorial Indigo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#14121f;
+    --peri:#aab4ff;
+    --ink:#ece9f6;
+    --muted:#9a93c0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--base);color:var(--ink);
+    font-family:'Manrope',sans-serif;font-weight:300;line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 56px}
+  .rule{height:1px;background:var(--muted);opacity:.28}
+  .rule-thick{height:2px;background:var(--peri);opacity:.6}
+
+  /* masthead */
+  header{padding:26px 0 18px}
+  .masthead{display:flex;justify-content:space-between;align-items:flex-end}
+  .brand{font-family:'Bodoni Moda',serif;font-weight:700;font-size:30px;letter-spacing:.01em}
+  .brand span{font-style:italic;font-weight:500;color:var(--peri)}
+  .issue{display:flex;gap:28px;font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--muted);align-items:flex-end}
+  .issue a{color:inherit;text-decoration:none}
+  .issue a:hover{color:var(--peri)}
+
+  /* hero magazine spread */
+  .hero{padding:60px 0 70px;display:grid;grid-template-columns:1.55fr .95fr;gap:64px;align-items:start}
+  .hero-left .label{font-family:'Manrope',monospace;font-size:11px;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--peri);margin-bottom:26px}
+  h1{
+    font-family:'Bodoni Moda',serif;font-weight:700;
+    font-size:80px;line-height:.98;letter-spacing:-.01em;color:var(--ink);
+  }
+  h1 em{font-style:italic;font-weight:500;color:var(--peri)}
+  .hero-right{padding-top:14px;border-left:1px solid rgba(154,147,192,.3);padding-left:38px}
+  .standfirst{font-family:'Bodoni Moda',serif;font-style:italic;font-weight:400;
+    font-size:23px;line-height:1.45;color:var(--ink)}
+  .standfirst::first-letter{
+    font-family:'Bodoni Moda',serif;font-style:normal;font-weight:700;
+    float:left;font-size:74px;line-height:.74;padding:8px 12px 0 0;color:var(--peri);
+  }
+  .byline{margin-top:26px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .cta{
+    display:inline-block;margin-top:30px;font-family:'Manrope',sans-serif;font-weight:600;
+    font-size:13px;letter-spacing:.04em;color:var(--base);background:var(--peri);
+    padding:13px 26px;text-decoration:none;transition:background .3s,transform .3s;
+  }
+  .cta:hover{background:#c2c9ff;transform:translateY(-2px)}
+
+  /* what we fix - numbered editorial list */
+  .fix{padding:64px 0 90px}
+  .fix-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .fix h2{font-family:'Bodoni Moda',serif;font-weight:700;font-size:42px}
+  .fix h2 em{font-style:italic;color:var(--peri);font-weight:500}
+  .fix .sec{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  .fixlist{list-style:none;margin-top:40px;column-count:2;column-gap:64px}
+  .fixlist li{
+    break-inside:avoid;display:grid;grid-template-columns:54px 1fr;gap:18px;align-items:baseline;
+    padding:24px 0;border-bottom:1px solid rgba(154,147,192,.18);
+  }
+  .fixlist .num{font-family:'Bodoni Moda',serif;font-weight:500;font-style:italic;
+    font-size:34px;color:var(--peri);line-height:1}
+  .fixlist .body{font-size:18px;color:var(--ink);font-weight:300;line-height:1.45}
+  footer{padding:30px 0 70px;font-family:'Bodoni Moda',serif;font-style:italic;
+    font-size:14px;color:var(--muted)}
+
+  @media(max-width:880px){
+    .wrap{padding-left:26px;padding-right:26px}
+    .hero{grid-template-columns:1fr;gap:40px}
+    .hero-right{border-left:none;padding-left:0}
+    h1{font-size:50px}
+    .fixlist{column-count:1}
+    .issue{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="masthead">
+      <div class="brand">Refactor<span>.me</span></div>
+      <div class="issue">
+        <a href="#fix">The Refactor Quarterly</a>
+        <a href="#fix">No. 01</a>
+        <a href="#fix">Contact</a>
+      </div>
+    </div>
+  </header>
+  <div class="rule-thick"></div>
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="label">A studio of one, for the web</div>
+      <h1>Your website is calling for a <em>refactor.</em></h1>
+    </div>
+    <div class="hero-right">
+      <p class="standfirst">We rebuild tired small business sites, hobby pages, and single-product sites. Faster, cleaner, mobile-friendly, and actually good.</p>
+      <div class="byline">Words and code, by one human</div>
+      <a class="cta" href="#fix">Commission a rebuild</a>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <section class="fix" id="fix">
+    <div class="fix-top">
+      <h2>What we <em>fix</em></h2>
+      <span class="sec">Field Notes</span>
+    </div>
+    <div class="rule"></div>
+    <ol class="fixlist">
+      <li><span class="num">I</span><span class="body">Looks like it was built in 2009 (it was)</span></li>
+      <li><span class="num">II</span><span class="body">Breaks the moment someone opens it on a phone</span></li>
+      <li><span class="num">III</span><span class="body">Takes a small eternity to load</span></li>
+      <li><span class="num">IV</span><span class="body">Fonts that should never have existed</span></li>
+      <li><span class="num">V</span><span class="body">A Flash intro (we are so sorry)</span></li>
+      <li><span class="num">VI</span><span class="body">Untouched since whoever set it up moved on</span></li>
+    </ol>
+  </section>
+
+  <div class="rule"></div>
+  <footer>Refactor.me, set in Bodoni and Manrope.</footer>
+</div>
+
+</body>
+</html>

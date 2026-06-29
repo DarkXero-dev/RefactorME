@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refactor.me, Tokonoma Zen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#11151c;
+    --accent:#8fa6d6;
+    --soft:#aab6c8;
+    --text:#e8edf5;
+    --rule:rgba(170,182,200,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--base);
+    color:var(--text);
+    font-family:'Manrope',sans-serif;
+    font-weight:300;
+    line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1240px;margin:0 auto;padding:0 64px}
+  .spectral{font-family:'Spectral',serif}
+
+  /* top bar */
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:40px 0}
+  .brand{font-family:'Spectral',serif;font-weight:400;font-size:1.4rem;letter-spacing:.04em}
+  .brand span{color:var(--accent)}
+  .nav{display:flex;gap:46px;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft)}
+  .nav a{color:inherit;text-decoration:none;opacity:.7;transition:.3s}
+  .nav a:hover{opacity:1;color:var(--accent)}
+
+  /* hero: vast negative space, off-center */
+  .hero{display:grid;grid-template-columns:1fr;min-height:78vh;align-items:center;padding:40px 0}
+  .hero-inner{max-width:60%;margin-left:6%}
+  .eyebrow{font-size:.72rem;letter-spacing:.4em;text-transform:uppercase;color:var(--accent);margin-bottom:40px}
+  h1{font-family:'Spectral',serif;font-weight:300;font-size:clamp(2.6rem,5vw,4.6rem);line-height:1.12;letter-spacing:-.005em}
+  h1 em{font-style:italic;color:var(--accent)}
+  .sub{margin-top:36px;max-width:40ch;font-size:1.08rem;color:var(--soft);font-weight:300}
+  .cta{display:inline-flex;align-items:center;gap:14px;margin-top:50px;font-size:.76rem;letter-spacing:.24em;text-transform:uppercase;color:var(--text);text-decoration:none;padding-bottom:8px;border-bottom:1px solid var(--accent);transition:.3s}
+  .cta:hover{color:var(--accent);gap:22px}
+
+  /* alcove panel holding one object */
+  .alcove-sec{padding:60px 0 120px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+  .alcove{position:relative;aspect-ratio:4/5;border:1px solid var(--rule);background:linear-gradient(180deg, rgba(143,166,214,.07), rgba(17,21,28,0));display:flex;align-items:center;justify-content:center}
+  .alcove::before{content:"";position:absolute;inset:24px;border:1px solid var(--rule)}
+  .object{position:relative;width:120px;height:120px}
+  .object .ring{position:absolute;inset:0;border:1px solid var(--accent);border-radius:50%;opacity:.85}
+  .object .ring.r2{inset:22px;opacity:.5}
+  .object .ring.r3{inset:46px;opacity:.3}
+  .object .core{position:absolute;inset:54px;border-radius:50%;background:var(--accent);box-shadow:0 0 40px rgba(143,166,214,.7)}
+  .alcove .cap{position:absolute;bottom:30px;left:0;right:0;text-align:center;font-family:'Spectral';font-style:italic;font-size:.92rem;color:var(--soft);opacity:.8}
+
+  /* quiet what you get list, off-center */
+  .get{padding-left:4%}
+  .get .label{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  .get h2{font-family:'Spectral';font-weight:300;font-size:clamp(1.9rem,3vw,2.7rem);margin-bottom:40px;line-height:1.2}
+  .glist{list-style:none}
+  .glist li{padding:22px 0;border-top:1px solid var(--rule);font-size:1.06rem;color:var(--text);font-weight:300;display:flex;gap:18px;align-items:baseline}
+  .glist li:last-child{border-bottom:1px solid var(--rule)}
+  .glist li .m{font-family:'Spectral';font-style:italic;color:var(--accent);font-size:.95rem;min-width:24px}
+  .glist li span.t{color:var(--soft)}
+
+  @media(max-width:880px){
+    .wrap{padding:0 32px}
+    .nav{display:none}
+    .hero-inner{max-width:100%;margin-left:0}
+    .alcove-sec{grid-template-columns:1fr;gap:50px}
+    .get{padding-left:0}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">Refactor<span>.me</span></div>
+      <nav class="nav">
+        <a href="#">Studio</a>
+        <a href="#get">What You Get</a>
+        <a href="#">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">A quiet rebuild practice</div>
+        <h1>Your website is <em>calling</em> for a refactor.</h1>
+        <p class="sub">We rebuild tired small business sites, hobby pages, and single-product sites. Faster, cleaner, mobile-friendly, and actually good.</p>
+        <a class="cta" href="#get">See what you get &rarr;</a>
+      </div>
+    </section>
+
+    <section class="alcove-sec" id="get">
+      <div class="alcove">
+        <div class="object">
+          <span class="ring"></span>
+          <span class="ring r2"></span>
+          <span class="ring r3"></span>
+          <span class="core"></span>
+        </div>
+        <div class="cap">one site, made calm</div>
+      </div>
+
+      <div class="get">
+        <div class="label">What you get</div>
+        <h2 class="spectral">Less, but everything that matters.</h2>
+        <ul class="glist">
+          <li><span class="m">i</span><span class="t">A rebuilt site: clean code, fast load, fully mobile responsive</span></li>
+          <li><span class="m">ii</span><span class="t">Whatever the site actually needs: menu, gallery, contact page, the lot</span></li>
+          <li><span class="m">iii</span><span class="t">Plain-English setup instructions</span></li>
+          <li><span class="m">iv</span><span class="t">One human to talk to, not a ticket queue</span></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

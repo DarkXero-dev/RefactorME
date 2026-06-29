@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refactor.me (Glacial Minimal)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@200;300;400&family=Albert+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#0e1014;
+    --surface:#14171d;
+    --ice:#bcd4e6;
+    --ice2:#9fc0d9;
+    --text:#eef3f8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--base);color:var(--text);
+    font-family:'Albert Sans',sans-serif;font-weight:300;
+    -webkit-font-smoothing:antialiased;line-height:1.6;
+  }
+  .wrap{max-width:1240px;margin:0 auto;padding:0 60px}
+
+  /* tiny top nav */
+  nav{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:30px 60px;max-width:1240px;margin:0 auto;
+  }
+  .brand{
+    font-family:'Spectral',serif;font-weight:300;font-size:18px;
+    letter-spacing:.02em;color:var(--ice);
+  }
+  .brand b{font-weight:400;color:var(--text)}
+  .links{display:flex;gap:36px;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ice2);opacity:.6}
+  .links a{color:inherit;text-decoration:none;transition:opacity .4s}
+  .links a:hover{opacity:1;color:var(--ice)}
+
+  /* hero: enormous negative space */
+  .hero{padding:170px 0 150px}
+  .tag{font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--ice2);opacity:.55;margin-bottom:64px}
+  h1{
+    font-family:'Spectral',serif;font-weight:200;
+    font-size:96px;line-height:1.02;letter-spacing:-.01em;
+    color:var(--text);max-width:15ch;
+  }
+  h1 em{font-style:italic;color:var(--ice);font-weight:200}
+  .subhead{
+    margin-top:80px;max-width:46ch;font-size:18px;font-weight:300;
+    color:var(--ice2);line-height:1.75;
+  }
+  .cta{
+    display:inline-block;margin-top:60px;
+    font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--text);text-decoration:none;padding-bottom:8px;
+    border-bottom:1px solid var(--ice2);transition:border-color .4s,letter-spacing .4s;
+  }
+  .cta:hover{border-color:var(--ice);letter-spacing:.2em}
+
+  .rule{height:1px;background:linear-gradient(to right,transparent,rgba(188,212,230,.28),transparent);
+    max-width:1240px;margin:0 auto}
+
+  /* what you get */
+  .get{padding:150px 0 180px}
+  .get .label{font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--ice2);opacity:.55;margin-bottom:90px}
+  .getlist{list-style:none;display:flex;flex-direction:column;gap:0}
+  .getlist li{
+    display:grid;grid-template-columns:64px 1fr;align-items:baseline;gap:30px;
+    padding:54px 0;border-top:1px solid rgba(188,212,230,.12);
+  }
+  .getlist li:last-child{border-bottom:1px solid rgba(188,212,230,.12)}
+  .getlist .n{font-family:'Spectral',serif;font-weight:200;font-size:22px;
+    color:var(--ice2);opacity:.5}
+  .getlist .t{font-family:'Spectral',serif;font-weight:300;font-size:30px;
+    color:var(--text);line-height:1.35;max-width:24ch}
+  footer{padding:60px 0 90px;font-size:12px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--ice2);opacity:.4}
+
+  @media(max-width:820px){
+    .wrap,nav{padding-left:26px;padding-right:26px}
+    h1{font-size:52px}
+    .links{display:none}
+    .getlist li{grid-template-columns:1fr;gap:10px}
+    .getlist .t{font-size:24px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Refactor<b>.me</b></div>
+  <div class="links">
+    <a href="#get">Get</a>
+    <a href="#get">About</a>
+    <a href="#get">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="tag">Small business sites, rebuilt</div>
+    <h1>Your website is calling for a <em>refactor.</em></h1>
+    <p class="subhead">We rebuild tired small business sites, hobby pages, and single-product sites. Faster, cleaner, mobile-friendly, and actually good.</p>
+    <a class="cta" href="#get">Begin</a>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<section class="get" id="get">
+  <div class="wrap">
+    <div class="label">What you get</div>
+    <ul class="getlist">
+      <li><span class="n">01</span><span class="t">A rebuilt site: clean code, fast load, fully mobile responsive</span></li>
+      <li><span class="n">02</span><span class="t">Whatever the site actually needs: menu, gallery, contact page, the lot</span></li>
+      <li><span class="n">03</span><span class="t">Plain-English setup instructions</span></li>
+      <li><span class="n">04</span><span class="t">One human to talk to, not a ticket queue</span></li>
+    </ul>
+  </div>
+</section>
+
+<div class="wrap"><footer>Refactor.me</footer></div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+---
+const cards = [
+  {
+    title: 'Websites',
+    body: 'Informational sites for cafes, shops, services, and hobbyists. Anyone with a page that needs saving.',
+    color: 'blue',
+    svg: '<rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 9h18" stroke="currentColor" stroke-width="2"/>',
+  },
+  {
+    title: 'Linux scripting',
+    body: 'Shell scripts, cron jobs, and small automations to take the repetitive Linux chores off your hands.',
+    color: 'violet',
+    svg: '<rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 9l3 2.5L7 14M12 14h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+  },
+  {
+    title: 'Desktop apps',
+    body: 'Simple GUI tools that do a thing, and do it well, without the bloat.',
+    color: 'cyan',
+    svg: '<rect x="3" y="4" width="18" height="13" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+  },
+];
+---
+
+<section id="build">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="tag">modules</span>
+        <h2>What we <span class="grad">build</span>.</h2>
+      </div>
+      <p>Not just websites. A few things this one-person studio ships.</p>
+    </div>
+
+    <div class="cards">
+      {cards.map((c, i) => (
+        <article class="card reveal panel" style={`--reveal-delay:${i * 80}ms`}>
+          <span class="bar" aria-hidden="true"></span>
+          <span class={`ic ${c.color}`} aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" set:html={c.svg} />
+          </span>
+          <h3>{c.title}</h3>
+          <p>{c.body}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cards{display:grid;gap:1.1rem}
+  @media (min-width:760px){.cards{grid-template-columns:repeat(3,1fr)}}
+  .card{position:relative;overflow:hidden;padding:1.6rem 1.5rem;transition:transform .22s var(--ease),border-color .22s var(--ease)}
+  .card .bar{position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-tri);opacity:0;transition:opacity .25s var(--ease)}
+  .card:hover{transform:translateY(-5px);border-color:rgba(79,140,255,.4)}
+  .card:hover .bar{opacity:1}
+  .ic{display:inline-grid;place-items:center;width:3rem;height:3rem;border-radius:12px;margin-bottom:1.1rem}
+  .ic.blue{background:rgba(79,140,255,.1);border:1px solid rgba(79,140,255,.25);color:var(--blue)}
+  .ic.violet{background:rgba(155,108,255,.1);border:1px solid rgba(155,108,255,.25);color:var(--violet)}
+  .ic.cyan{background:rgba(63,198,216,.1);border:1px solid rgba(63,198,216,.25);color:var(--cyan)}
+  .card h3{font-weight:800;font-size:1.2rem;letter-spacing:-.02em;margin-bottom:.5rem}
+  .card p{color:var(--muted);font-size:.92rem;margin:0}
+</style>

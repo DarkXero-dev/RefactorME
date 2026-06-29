@@ -1,0 +1,203 @@
+---
+// "See your site, refactored." A visitor pastes a URL and gets a static image
+// of a modernized homepage. Draft mode: the button is inert (PREVIEW_ENABLED
+// false) and shows a calm note, no backend call, no spend. Live mode: set
+// PUBLIC_PREVIEW_ENABLED=true (and PUBLIC_TURNSTILE_SITEKEY) to wire it up.
+const enabled = import.meta.env.PUBLIC_PREVIEW_ENABLED === 'true';
+const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY ?? '';
+const endpoint = `${import.meta.env.BASE_URL}api/preview`;
+---
+
+<section id="try" class="try">
+  <div class="wrap">
+    <div class="try-head reveal">
+      <span class="tag">live preview</span>
+      <h2>See your site, <span class="grad">refactored</span>.</h2>
+      <p>Paste your URL. We read it and reimagine the homepage, dark and modern. A rough draft, on the house.</p>
+    </div>
+
+    <div class="panel try-box reveal" data-endpoint={endpoint} data-enabled={String(enabled)}>
+      <form class="try-form" autocomplete="off">
+        <div class="field">
+          <span class="proto">https://</span>
+          <input
+            class="url"
+            type="text"
+            inputmode="url"
+            placeholder="your-website.com"
+            aria-label="Your website URL"
+          />
+        </div>
+        <button class="btn submit" type="submit" disabled={!enabled}>
+          Generate preview
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+
+      {enabled && sitekey && (
+        <div class="cf-turnstile" data-sitekey={sitekey} data-size="flexible"></div>
+      )}
+
+      {!enabled && <p class="soon">Live preview coming soon.</p>}
+
+      <div class="state" hidden>
+        <div class="loading" hidden>
+          <div class="track"><b class="fill"></b></div>
+          <p class="loadmsg">Reading your site and reimagining it. This takes a few seconds.</p>
+        </div>
+        <figure class="result" hidden>
+          <img class="shot" alt="A modernized preview of your homepage" />
+          <figcaption>
+            Like what you see? This is a rough draft.
+            <a href="mailto:hello@refactor.me">Email hello@refactor.me</a> and we will build the real thing.
+          </figcaption>
+        </figure>
+        <p class="err" role="alert" hidden></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{enabled && sitekey && (
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+)}
+
+<style>
+  /* sits right under the hero as the primary call to action, centered */
+  .try{padding-top:clamp(1rem,3vw,2rem)}
+  .try-head{text-align:center;max-width:36rem;margin:0 auto 1.6rem}
+  .try-head .tag{display:inline-block}
+  .try-head h2{max-width:none}
+  .try-head p{color:var(--muted);font-size:.95rem;margin-top:.7rem}
+
+  .try-box{padding:clamp(1.5rem,4vw,2.2rem);max-width:42rem;margin-inline:auto}
+  .try-form{display:flex;gap:.8rem;flex-wrap:wrap;min-width:0}
+  .field{
+    flex:1 1 16rem;min-width:0;display:flex;align-items:center;gap:.2rem;
+    background:var(--base);border:1px solid var(--line);border-radius:11px;
+    padding:.2rem .2rem .2rem .9rem;overflow:hidden;
+  }
+  .field:focus-within{border-color:var(--blue)}
+  .proto{flex:0 0 auto;font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+  .url{
+    flex:1 1 auto;width:100%;min-width:0;
+    background:transparent;border:none;outline:none;color:var(--text);
+    font-family:var(--mono);font-size:.92rem;padding:.6rem .2rem;
+  }
+  .url::placeholder{color:var(--muted)}
+  .submit{flex:0 0 auto}
+  .submit:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+  /* on narrow screens the button drops below the field and goes full width */
+  @media (max-width:520px){
+    .field{flex:1 1 100%}
+    .submit{flex:1 1 100%;justify-content:center}
+  }
+
+  .soon{
+    display:block;width:fit-content;margin:1.2rem auto 0;text-align:center;
+    font-family:var(--mono);font-size:.74rem;font-weight:700;
+    letter-spacing:.08em;text-transform:uppercase;
+    color:#3a1c05;
+    background:linear-gradient(135deg,#ffb35a,#f0820a);
+    border:1px solid rgba(240,130,10,.55);
+    padding:.5rem 1rem;border-radius:999px;
+    box-shadow:0 8px 22px -10px rgba(240,130,10,.65);
+  }
+
+  .cf-turnstile{margin-top:1rem}
+
+  .state{margin-top:1.4rem}
+  .loading .track{height:5px;border-radius:3px;background:#1f2a3d;overflow:hidden}
+  .loading .fill{
+    display:block;height:100%;width:30%;border-radius:3px;
+    background:linear-gradient(90deg,var(--blue),var(--cyan),var(--violet));
+    animation:slide 1.4s var(--ease) infinite;
+  }
+  @keyframes slide{0%{margin-left:-30%}100%{margin-left:100%}}
+  .loadmsg{margin-top:.7rem;color:var(--muted);font-size:.9rem}
+
+  .result{margin:0}
+  .result .shot{
+    display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line);
+    box-shadow:var(--shadow);
+  }
+  .result figcaption{margin-top:.9rem;color:var(--muted);font-size:.9rem}
+  .result a{color:var(--cyan);font-weight:600}
+  .result a:hover{color:var(--blue)}
+
+  .err{
+    margin:0;color:var(--soft);font-size:.92rem;
+    background:rgba(155,108,255,.08);border:1px solid rgba(155,108,255,.25);
+    border-radius:11px;padding:.9rem 1rem;
+  }
+  .err a{color:var(--cyan)}
+
+  @media (prefers-reduced-motion: reduce){
+    .loading .fill{animation:none;width:100%}
+  }
+</style>
+
+<script>
+  const box = document.querySelector<HTMLElement>('.try-box');
+  if (box && box.dataset.enabled === 'true') {
+    const endpoint = box.dataset.endpoint || '';
+    const form = box.querySelector<HTMLFormElement>('.try-form')!;
+    const input = box.querySelector<HTMLInputElement>('.url')!;
+    const submit = box.querySelector<HTMLButtonElement>('.submit')!;
+    const state = box.querySelector<HTMLElement>('.state')!;
+    const loading = box.querySelector<HTMLElement>('.loading')!;
+    const result = box.querySelector<HTMLElement>('.result')!;
+    const shot = box.querySelector<HTMLImageElement>('.shot')!;
+    const err = box.querySelector<HTMLElement>('.err')!;
+
+    const FALLBACK =
+      'We could not get a clean read on that site automatically. Email the URL to ' +
+      '<a href="mailto:hello@refactor.me">hello@refactor.me</a> and we will mock up a preview by hand.';
+
+    function show(el: HTMLElement, on: boolean) {
+      el.hidden = !on;
+    }
+    function showError(msg: string) {
+      err.innerHTML = msg;
+      show(err, true);
+      show(loading, false);
+      show(result, false);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const url = input.value.trim();
+      if (!url) return;
+
+      const token =
+        (window as unknown as { turnstile?: { getResponse(): string } }).turnstile?.getResponse() ||
+        (box!.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]')?.value ?? '');
+
+      show(state, true);
+      show(err, false);
+      show(result, false);
+      show(loading, true);
+      submit.disabled = true;
+
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ url, turnstileToken: token }),
+        });
+        const data = (await res.json()) as { ok?: boolean; image?: string; message?: string };
+        if (data.ok && data.image) {
+          shot.src = data.image;
+          show(loading, false);
+          show(result, true);
+        } else {
+          showError(data.message || FALLBACK);
+        }
+      } catch {
+        showError(FALLBACK);
+      } finally {
+        submit.disabled = false;
+      }
+    });
+  }
+</script>

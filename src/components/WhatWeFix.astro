@@ -1,0 +1,61 @@
+---
+const items = [
+  ['Looks like it was built in 2009 (it was)', 'critical', 18],
+  ['Breaks the moment someone opens it on a phone', 'critical', 24],
+  ['Takes a small eternity to load', 'warning', 41],
+  ['Fonts that should never have existed', 'warning', 47],
+  ['A Flash intro (we are so sorry)', 'critical', 12],
+  ['Untouched since whoever set it up moved on', 'warning', 38],
+];
+---
+
+<section id="fix">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="tag">diagnostics</span>
+        <h2>You already know <span class="grad">something is off</span>.</h2>
+      </div>
+      <p>A quick scan of a tired site usually flags the same handful of issues. Recognise any of these?</p>
+    </div>
+
+    <div class="panel issues reveal">
+      {items.map(([text, sev, score]) => (
+        <div class="issue">
+          <span class={`sev ${sev}`}>{sev === 'critical' ? 'critical' : 'warning'}</span>
+          <span class="txt">{text}</span>
+          <span class="meter" aria-hidden="true"><b style={`width:${score}%`}></b></span>
+          <span class="val">{score}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .issues{padding:.4rem .5rem}
+  .issue{
+    display:grid;
+    grid-template-columns:auto 1fr 120px 32px;
+    align-items:center;gap:1rem;
+    padding:1rem 1.1rem;border-radius:12px;
+    transition:background .18s var(--ease);
+  }
+  .issue + .issue{border-top:1px solid var(--line)}
+  .issue:hover{background:var(--panel-2)}
+  .sev{
+    font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
+    padding:.26rem .5rem;border-radius:6px;font-weight:600;text-align:center;
+  }
+  .sev.critical{color:#a9c4ff;background:rgba(79,140,255,.12);border:1px solid rgba(79,140,255,.3)}
+  .sev.warning{color:#c4b3ff;background:rgba(155,108,255,.12);border:1px solid rgba(155,108,255,.3)}
+  .txt{font-size:.96rem;font-weight:500}
+  .meter{height:5px;border-radius:3px;background:#1f2a3d;overflow:hidden}
+  .meter b{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--cyan))}
+  .val{font-family:var(--mono);font-size:.78rem;color:var(--muted);text-align:right}
+
+  @media (max-width:640px){
+    .issue{grid-template-columns:auto 1fr;gap:.6rem}
+    .issue .meter,.issue .val{display:none}
+  }
+</style>

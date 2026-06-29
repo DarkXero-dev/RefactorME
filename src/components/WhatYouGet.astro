@@ -1,0 +1,114 @@
+---
+const rows = [
+  ['A rebuilt site: clean code, fast load, fully mobile responsive', 'Hand-written, lightweight, and audited on real devices.', 'blue',
+    '<path d="M8 9l-4 3 4 3M16 9l4 3-4 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'],
+  ['Whatever the site actually needs: menu, gallery, contact page, the lot', 'Built around your business, not a fixed template.', 'violet',
+    '<rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M4 10h16M9 5v14" stroke="currentColor" stroke-width="2"/>'],
+  ['Plain-English setup instructions', 'No jargon. Steps you can actually follow.', 'cyan',
+    '<path d="M6 4h9l3 3v13H6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12h6M9 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'],
+  ['One human to talk to, not a ticket queue', 'Same person, start to finish. Direct line.', 'blue',
+    '<circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'],
+];
+const tiles = [
+  ['Avg load time', '0.8', ' s', '71% faster vs before', '2,34 16,30 30,33 44,24 58,26 72,14 88,8', 'blue'],
+  ['Mobile score', '98', ' /100', 'up from 54', '2,36 16,28 30,30 44,20 58,16 72,12 88,5', 'cyan'],
+  ['Lines of code', '-62', ' %', 'leaner build', '2,8 16,12 30,10 44,18 58,22 72,30 88,34', 'violet'],
+  ['Accessibility', 'AA', ' pass', 'contrast fixed', '2,30 16,26 30,28 44,18 58,20 72,12 88,9', 'blue'],
+];
+const stroke = { blue: '#4f8cff', violet: '#9b6cff', cyan: '#3fc6d8' };
+---
+
+<section id="get">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="tag">deliverables · v1.0</span>
+        <h2>What you <span class="grad">get back</span>.</h2>
+      </div>
+      <p>Every refactor ships as a measured upgrade. Here is what lands, and the numbers behind it.</p>
+    </div>
+
+    <div class="board">
+      <div class="panel deliver reveal">
+        {rows.map(([rt, rd, color, svg], i) => (
+          <div class="drow">
+            <span class={`ic ${color}`} aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" set:html={svg} />
+            </span>
+            <div class="dtext">
+              <div class="rt">{rt}</div>
+              <div class="rd">{rd}</div>
+            </div>
+            <span class="rn">{String(i + 1).padStart(2, '0')}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="statcol reveal" style="--reveal-delay:90ms">
+        <div class="bigtiles">
+          {tiles.map(([k, v, unit, d, pts, color]) => (
+            <div class="bigtile">
+              <div class="k">{k}</div>
+              <div class="v">{v}<small>{unit}</small></div>
+              <div class="d">{d}</div>
+              <svg class="spark" viewBox="0 0 90 42" fill="none"><polyline points={pts} stroke={stroke[color]} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          ))}
+        </div>
+
+        <div class="gauge">
+          <svg class="ring" width="92" height="92" viewBox="0 0 92 92" aria-hidden="true">
+            <circle cx="46" cy="46" r="38" fill="none" stroke="#1f2a3d" stroke-width="9"/>
+            <circle cx="46" cy="46" r="38" fill="none" stroke="url(#gaugeGrad)" stroke-width="9" stroke-linecap="round" stroke-dasharray="238.7" stroke-dashoffset="14" transform="rotate(-90 46 46)"/>
+            <defs>
+              <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#4f8cff"/><stop offset="0.5" stop-color="#3fc6d8"/><stop offset="1" stop-color="#9b6cff"/>
+              </linearGradient>
+            </defs>
+            <text x="46" y="50" text-anchor="middle" fill="#e8eef8" font-size="20" font-weight="800" font-family="Schibsted Grotesk,sans-serif">94</text>
+            <text x="46" y="64" text-anchor="middle" fill="#8b97ad" font-size="8.5" font-family="ui-monospace,monospace">SCORE</text>
+          </svg>
+          <div class="gtext">
+            <div class="k">Overall site health</div>
+            <div class="v">Excellent</div>
+            <div class="d">Up from a 41 baseline at first audit.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .board{display:grid;gap:1.1rem}
+  @media (min-width:900px){.board{grid-template-columns:1.4fr 1fr}}
+
+  .deliver{padding:.5rem}
+  .drow{display:flex;gap:1rem;align-items:center;padding:1.1rem;border-radius:13px;transition:background .18s var(--ease)}
+  .drow + .drow{border-top:1px solid var(--line)}
+  .drow:hover{background:var(--panel-2)}
+  .ic{flex:0 0 auto;width:44px;height:44px;border-radius:12px;display:grid;place-items:center}
+  .ic.blue{background:rgba(79,140,255,.1);border:1px solid rgba(79,140,255,.25);color:var(--blue)}
+  .ic.violet{background:rgba(155,108,255,.1);border:1px solid rgba(155,108,255,.25);color:var(--violet)}
+  .ic.cyan{background:rgba(63,198,216,.1);border:1px solid rgba(63,198,216,.25);color:var(--cyan)}
+  .dtext .rt{font-weight:600;font-size:.95rem;letter-spacing:-.01em}
+  .dtext .rd{font-size:.8rem;color:var(--muted);margin-top:.2rem}
+  .rn{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+
+  .statcol{display:grid;gap:1.1rem;align-content:start}
+  .bigtiles{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+  .bigtile{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--panel),var(--panel-deep));border:1px solid var(--line);border-radius:16px;padding:1.1rem}
+  .bigtile .k{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .bigtile .v{font-size:1.7rem;font-weight:800;letter-spacing:-.03em;margin-top:.5rem}
+  .bigtile .v small{font-size:.8rem;color:var(--muted);font-weight:600}
+  .bigtile .d{font-size:.72rem;margin-top:.25rem;font-weight:600;color:var(--cyan)}
+  .spark{position:absolute;right:0;bottom:0;width:90px;height:42px;opacity:.85}
+
+  .gauge{display:flex;align-items:center;gap:1.1rem;background:linear-gradient(180deg,var(--panel),var(--panel-deep));border:1px solid var(--line);border-radius:16px;padding:1.1rem}
+  .gauge .ring{flex:0 0 auto}
+  .gtext .k{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .gtext .v{font-size:1.4rem;font-weight:800;letter-spacing:-.02em;margin-top:.25rem}
+  .gtext .d{font-size:.78rem;color:var(--muted);margin-top:.25rem}
+
+  @media (max-width:560px){.bigtiles{grid-template-columns:1fr}}
+</style>

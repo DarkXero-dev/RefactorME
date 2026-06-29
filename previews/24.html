@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refactor.me, Riso Duotone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@500;700;800;900&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#161a26;
+    --indigo:#4b54d6;
+    --blue:#4aa8ff;
+    --text:#e9ecf6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--base);
+    color:var(--text);
+    font-family:'Karla',sans-serif;
+    line-height:1.6;
+    position:relative;
+  }
+  /* grain overlay */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.10;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  /* registration cross-marks */
+  .crop{position:fixed;z-index:40;width:26px;height:26px;opacity:.6}
+  .crop::before,.crop::after{content:"";position:absolute;background:var(--blue)}
+  .crop::before{left:50%;top:0;width:1px;height:100%;transform:translateX(-.5px)}
+  .crop::after{top:50%;left:0;height:1px;width:100%;transform:translateY(-.5px)}
+  .crop.tl{top:18px;left:18px}
+  .crop.tr{top:18px;right:18px}
+  .crop.bl{bottom:18px;left:18px}
+  .crop.br{bottom:18px;right:18px}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 56px}
+  .grot{font-family:'Darker Grotesque',sans-serif}
+
+  /* top bar */
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:42px 0 26px}
+  .brand{font-family:'Darker Grotesque',sans-serif;font-weight:900;font-size:2rem;line-height:1;position:relative}
+  .brand .a{color:var(--text)}
+  .brand .b{color:var(--blue);position:relative}
+  /* misregistration ghost on brand */
+  .brand::before{content:"Refactor.me";position:absolute;left:2px;top:-2px;color:var(--indigo);opacity:.55;z-index:-1;mix-blend-mode:screen}
+  .nav{display:flex;gap:8px}
+  .nav a{font-family:'Karla';font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;text-decoration:none;color:var(--text);border:2px solid var(--indigo);padding:7px 13px;transition:.2s}
+  .nav a:hover{background:var(--indigo);color:#fff}
+
+  /* hero */
+  .hero{padding:60px 0 80px;position:relative}
+  .tag{display:inline-block;font-family:'Karla';font-weight:700;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);background:rgba(75,84,214,.18);padding:6px 12px;border-left:3px solid var(--indigo);margin-bottom:24px}
+  .htitle{position:relative;display:inline-block}
+  h1{font-family:'Darker Grotesque',sans-serif;font-weight:900;font-size:clamp(3rem,9vw,7rem);line-height:.86;letter-spacing:-.01em;color:var(--text);position:relative;z-index:2}
+  /* duotone misregistration layers */
+  .htitle::before,.htitle::after{
+    content:"Your website is calling for a refactor.";
+    font-family:'Darker Grotesque',sans-serif;font-weight:900;
+    font-size:clamp(3rem,9vw,7rem);line-height:.86;letter-spacing:-.01em;
+    position:absolute;top:0;left:0;pointer-events:none;
+  }
+  .htitle::before{color:var(--indigo);transform:translate(-5px,4px);opacity:.7;z-index:1;mix-blend-mode:screen}
+  .htitle::after{color:var(--blue);transform:translate(5px,-3px);opacity:.55;z-index:0;mix-blend-mode:screen}
+  .sub{max-width:46ch;margin-top:32px;font-size:1.12rem;font-weight:500}
+  .cta{display:inline-block;margin-top:34px;font-family:'Darker Grotesque';font-weight:800;font-size:1.5rem;text-transform:uppercase;letter-spacing:.02em;color:#fff;background:var(--indigo);padding:12px 34px;text-decoration:none;box-shadow:6px 6px 0 var(--blue);transition:.18s}
+  .cta:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--blue)}
+
+  /* what we fix list */
+  .fix{padding:50px 0 120px}
+  .fix-head{display:flex;align-items:flex-end;gap:18px;border-bottom:3px solid var(--indigo);padding-bottom:14px;margin-bottom:8px}
+  .fix-head h2{font-family:'Darker Grotesque';font-weight:900;font-size:clamp(2.2rem,5vw,3.6rem);line-height:.9;color:var(--blue)}
+  .fix-head span{font-family:'Karla';font-weight:700;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text);opacity:.6;margin-bottom:8px}
+  .list{counter-reset:f}
+  .item{counter-increment:f;display:grid;grid-template-columns:54px 1fr;gap:20px;align-items:baseline;padding:20px 0;border-bottom:2px dashed rgba(74,168,255,.4)}
+  .item::before{content:counter(f,decimal-leading-zero);font-family:'Darker Grotesque';font-weight:900;font-size:1.8rem;color:var(--indigo)}
+  .item p{font-family:'Darker Grotesque';font-weight:700;font-size:clamp(1.4rem,3vw,2.1rem);line-height:1.05;color:var(--text)}
+  .item:nth-child(even) p{color:var(--blue)}
+  .item:hover::before{color:var(--blue)}
+
+  @media(max-width:760px){
+    .wrap{padding:0 40px}
+    .nav{display:none}
+    .item{grid-template-columns:40px 1fr;gap:12px}
+  }
+</style>
+</head>
+<body>
+  <span class="crop tl"></span><span class="crop tr"></span><span class="crop bl"></span><span class="crop br"></span>
+
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand"><span class="a">Refactor</span><span class="b">.me</span></div>
+      <nav class="nav">
+        <a href="#">Work</a>
+        <a href="#fix">Fixes</a>
+        <a href="#">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <span class="tag">Indie rebuild press, run by one</span>
+      <div class="htitle">
+        <h1>Your website is calling for a refactor.</h1>
+      </div>
+      <p class="sub">We rebuild tired small business sites, hobby pages, and single-product sites. Faster, cleaner, mobile-friendly, and actually good.</p>
+      <br>
+      <a class="cta" href="#fix">Send it to the press</a>
+    </section>
+
+    <section class="fix" id="fix">
+      <div class="fix-head">
+        <h2>What we fix</h2>
+        <span>printed in two passes</span>
+      </div>
+      <div class="list">
+        <div class="item"><p>Looks like it was built in 2009 (it was)</p></div>
+        <div class="item"><p>Breaks the moment someone opens it on a phone</p></div>
+        <div class="item"><p>Takes a small eternity to load</p></div>
+        <div class="item"><p>Fonts that should never have existed</p></div>
+        <div class="item"><p>A Flash intro (we are so sorry)</p></div>
+        <div class="item"><p>Untouched since whoever set it up moved on</p></div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

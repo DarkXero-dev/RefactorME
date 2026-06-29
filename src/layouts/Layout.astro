@@ -1,0 +1,100 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Refactor.me, small sites rebuilt by one person who knows what they're doing",
+  description = 'Refactor.me rebuilds tired small business sites, hobby pages, and single-product sites. Faster, cleaner, mobile-friendly, and actually good.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#0f1420" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="demo-ribbon" aria-hidden="true"><span>Design Demo</span></div>
+    <slot />
+
+    <style>
+      /* fixed diagonal corner ribbon flagging this as a demo build */
+      .demo-ribbon{
+        position:fixed;top:0;right:0;
+        width:150px;height:150px;overflow:hidden;
+        z-index:200;pointer-events:none;
+      }
+      .demo-ribbon span{
+        position:absolute;top:30px;right:-42px;
+        width:190px;text-align:center;
+        transform:rotate(45deg);
+        background:linear-gradient(135deg,#e23b3b,#b81c1c);
+        color:#fff;
+        font-family:'Schibsted Grotesk',system-ui,sans-serif;
+        font-weight:800;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+        padding:.42rem 0;
+        box-shadow:0 6px 16px rgba(0,0,0,.45);
+        border-top:1px solid rgba(255,255,255,.3);
+        border-bottom:1px solid rgba(0,0,0,.25);
+      }
+      @media (max-width:520px){
+        .demo-ribbon{width:120px;height:120px}
+        .demo-ribbon span{top:24px;right:-50px;width:172px;font-size:.64rem;padding:.34rem 0}
+      }
+    </style>
+
+    <script>
+      // Gentle scroll reveal. No dependencies.
+      // First paint: reveal whatever is already on screen with a small stagger.
+      // After that: IntersectionObserver handles the rest as they enter.
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+
+      if (reduce) {
+        els.forEach((el) => el.classList.add('in'));
+      } else {
+        const vh = window.innerHeight;
+        const onscreen = els.filter((el) => el.getBoundingClientRect().top < vh * 0.92);
+        onscreen.forEach((el, i) => {
+          el.style.setProperty('--reveal-delay', `${Math.min(i, 6) * 80}ms`);
+          requestAnimationFrame(() => el.classList.add('in'));
+        });
+
+        if ('IntersectionObserver' in window) {
+          const io = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((en) => {
+                if (en.isIntersecting) {
+                  en.target.classList.add('in');
+                  io.unobserve(en.target);
+                }
+              });
+            },
+            { threshold: 0.14, rootMargin: '0px 0px -8% 0px' }
+          );
+          els.filter((el) => !el.classList.contains('in')).forEach((el) => io.observe(el));
+        } else {
+          els.forEach((el) => el.classList.add('in'));
+        }
+      }
+    </script>
+  </body>
+</html>

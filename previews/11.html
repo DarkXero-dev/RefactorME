@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refactor.me, Liquid Chrome Cool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#0a0c14;
+    --iri1:#aeb8ff;
+    --iri2:#6f8cff;
+    --text:#eef0f8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--base);
+    color:var(--text);
+    font-family:"Manrope",system-ui,sans-serif;
+    line-height:1.55;
+    overflow-x:hidden;
+    position:relative;
+  }
+  /* ambient liquid blobs */
+  .blob{position:fixed;border-radius:50%;filter:blur(60px);opacity:.55;z-index:0;pointer-events:none}
+  .blob.b1{width:640px;height:640px;top:-180px;left:-160px;
+    background:radial-gradient(circle at 35% 30%,var(--iri1),var(--iri2) 45%,transparent 70%);}
+  .blob.b2{width:520px;height:520px;bottom:-160px;right:-120px;
+    background:radial-gradient(circle at 60% 40%,var(--iri2),#3b4ea8 55%,transparent 72%);opacity:.45}
+  .blob.b3{width:420px;height:420px;top:40%;left:55%;
+    background:radial-gradient(circle at 50% 50%,#c9d0ff,transparent 68%);opacity:.25}
+  .wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 32px}
+
+  /* top bar */
+  header{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;
+    padding:26px 32px;max-width:1180px;margin:0 auto}
+  .brand{font-family:"Unbounded",sans-serif;font-weight:700;font-size:1.35rem;letter-spacing:-.01em;
+    background:linear-gradient(120deg,#fff,var(--iri1),var(--iri2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  nav a{color:#c4c9e6;text-decoration:none;margin-left:26px;font-size:.95rem;font-weight:500;transition:color .2s}
+  nav a:hover{color:#fff}
+
+  /* hero */
+  .hero{padding:80px 0 110px;position:relative}
+  .hero h1{
+    font-family:"Unbounded",sans-serif;font-weight:900;
+    font-size:clamp(2.6rem,7vw,5.6rem);line-height:1.02;letter-spacing:-.02em;
+    max-width:14ch;
+    background:linear-gradient(135deg,#ffffff 0%,var(--iri1) 45%,var(--iri2) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 8px 30px rgba(111,140,255,.35));
+  }
+  .hero p{margin-top:28px;font-size:1.2rem;max-width:46ch;color:#cfd4ef}
+  .cta{display:inline-flex;align-items:center;gap:10px;margin-top:40px;
+    padding:16px 30px;border-radius:60px;font-weight:700;font-size:1rem;text-decoration:none;
+    color:#0a0c14;
+    background:linear-gradient(135deg,#eef0f8,var(--iri1) 60%,var(--iri2));
+    box-shadow:0 10px 40px rgba(111,140,255,.5),inset 0 1px 2px rgba(255,255,255,.7);
+    transition:transform .25s,box-shadow .25s}
+  .cta:hover{transform:translateY(-3px);box-shadow:0 16px 50px rgba(111,140,255,.65),inset 0 1px 2px rgba(255,255,255,.9)}
+
+  /* build section */
+  .build{padding:60px 0 130px}
+  .build h2{font-family:"Unbounded",sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,3rem);
+    letter-spacing:-.01em;margin-bottom:14px}
+  .build .lead{color:#aab1d6;max-width:48ch;margin-bottom:54px;font-size:1.1rem}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .card{
+    position:relative;padding:42px 34px;border-radius:46px;overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 25% 12%,rgba(174,184,255,.28),transparent 55%),
+      linear-gradient(160deg,rgba(255,255,255,.07),rgba(111,140,255,.05));
+    border:1px solid rgba(174,184,255,.22);
+    box-shadow:0 20px 60px rgba(0,0,0,.45),inset 0 1px 1px rgba(255,255,255,.18);
+    backdrop-filter:blur(8px);
+    transition:transform .3s,box-shadow .3s}
+  .card::before{content:"";position:absolute;top:-40%;left:-20%;width:80%;height:60%;
+    background:radial-gradient(closest-side,rgba(255,255,255,.5),transparent);filter:blur(20px);opacity:.6}
+  .card:hover{transform:translateY(-8px) scale(1.015);box-shadow:0 30px 80px rgba(111,140,255,.4),inset 0 1px 1px rgba(255,255,255,.25)}
+  .glob{width:70px;height:70px;border-radius:50%;margin-bottom:26px;position:relative;
+    background:radial-gradient(circle at 32% 28%,#fff,var(--iri1) 40%,var(--iri2) 80%);
+    box-shadow:0 8px 24px rgba(111,140,255,.55),inset 0 -6px 12px rgba(40,52,120,.6)}
+  .card h3{font-family:"Unbounded",sans-serif;font-weight:600;font-size:1.4rem;margin-bottom:12px}
+  .card p{color:#cdd2ee;font-size:1rem}
+
+  footer{position:relative;z-index:1;border-top:1px solid rgba(174,184,255,.14);
+    padding:30px 0;color:#8c93b8;font-size:.9rem;text-align:center}
+
+  @media(max-width:880px){
+    .cards{grid-template-columns:1fr}
+    nav{display:none}
+  }
+</style>
+</head>
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <header>
+    <div class="brand">Refactor.me</div>
+    <nav>
+      <a href="#build">What we build</a>
+      <a href="#start">Start</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Your website is calling for a refactor.</h1>
+      <p>We rebuild tired small business sites, hobby pages, and single-product sites. Faster, cleaner, mobile-friendly, and actually good.</p>
+      <a class="cta" id="start" href="#build">Refactor my site &rarr;</a>
+    </section>
+
+    <section class="build" id="build">
+      <h2>What we build</h2>
+      <p class="lead">Three things, done properly. Pick what fits, or mix them.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="glob"></div>
+          <h3>Websites</h3>
+          <p>Informational sites for cafes, shops, services, and hobbyists.</p>
+        </div>
+        <div class="card">
+          <div class="glob"></div>
+          <h3>Discord bots</h3>
+          <p>Custom bots for communities and servers.</p>
+        </div>
+        <div class="card">
+          <div class="glob"></div>
+          <h3>Desktop apps</h3>
+          <p>Simple GUI tools that do a thing well.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Refactor.me, one human, rebuilding the web one tired site at a time.</footer>
+</body>
+</html>

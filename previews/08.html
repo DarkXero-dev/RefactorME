@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refactor.me / Swiss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#14181f;
+    --white:#f2f5fa;
+    --steel:#6f93c4;
+    --text:#dfe6ef;
+    --rule:rgba(223,230,239,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--base);color:var(--text);font-family:"Archivo",sans-serif;-webkit-font-smoothing:antialiased}
+  .grid12{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 40px}
+
+  /* topbar */
+  .topbar{border-bottom:1px solid var(--rule)}
+  .topbar .inner{display:flex;align-items:baseline;justify-content:space-between;padding:18px 40px;max-width:1280px;margin:0 auto}
+  .brand{font-weight:900;font-size:20px;letter-spacing:-.04em;color:var(--white)}
+  .brand i{font-style:normal;color:var(--steel)}
+  .meta{display:flex;gap:40px}
+  .meta span{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text);opacity:.6}
+
+  /* hero */
+  .hero{padding:80px 0 70px;border-bottom:1px solid var(--rule)}
+  .hero .label{grid-column:1 / 3;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--steel);padding-top:14px}
+  .hero .headline{grid-column:3 / 13}
+  h1{font-weight:900;font-size:clamp(48px,9vw,120px);line-height:.9;letter-spacing:-.045em;color:var(--white);text-transform:uppercase}
+  h1 em{font-style:normal;color:var(--steel)}
+  .herofoot{margin-top:48px}
+  .herofoot .sub{grid-column:3 / 9;font-size:19px;line-height:1.5;font-weight:500;color:var(--text);opacity:.85}
+  .herofoot .act{grid-column:9 / 13;display:flex;align-items:flex-end;justify-content:flex-end}
+  .cta{display:inline-block;border:1px solid var(--steel);color:var(--white);text-decoration:none;
+    font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:14px 28px;transition:background .2s}
+  .cta:hover{background:var(--steel);color:var(--base)}
+
+  /* what we fix */
+  .section{padding:70px 0 100px}
+  .section .secrow{align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:18px;margin-bottom:0}
+  .section .sectitle{grid-column:1 / 9}
+  .section .sectitle h2{font-weight:800;font-size:clamp(28px,4vw,46px);letter-spacing:-.03em;color:var(--white);text-transform:uppercase}
+  .section .seccount{grid-column:9 / 13;text-align:right;font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--steel);text-transform:uppercase}
+
+  .fixlist{margin-top:0}
+  .fixrow{align-items:baseline;border-bottom:1px solid var(--rule);padding:26px 0;transition:background .2s}
+  .fixrow:hover{background:rgba(111,147,196,.06)}
+  .fixrow .n{grid-column:1 / 3;font-weight:900;font-size:clamp(34px,5vw,64px);line-height:.85;letter-spacing:-.04em;color:var(--steel)}
+  .fixrow .t{grid-column:3 / 11;font-weight:600;font-size:clamp(18px,2.4vw,28px);line-height:1.15;letter-spacing:-.02em;color:var(--white)}
+  .fixrow .tag{grid-column:11 / 13;text-align:right;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text);opacity:.5}
+
+  @media(max-width:820px){
+    .meta{display:none}
+    .hero .label{grid-column:1 / 13}
+    .hero .headline{grid-column:1 / 13;margin-top:10px}
+    .herofoot .sub{grid-column:1 / 13}
+    .herofoot .act{grid-column:1 / 13;justify-content:flex-start;margin-top:26px}
+    .section .sectitle{grid-column:1 / 13}
+    .section .seccount{grid-column:1 / 13;text-align:left;margin-top:6px}
+    .fixrow .n{grid-column:1 / 4}
+    .fixrow .t{grid-column:4 / 13}
+    .fixrow .tag{display:none}
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="inner">
+      <div class="brand">Refactor<i>.me</i></div>
+      <div class="meta">
+        <span>Index 08</span>
+        <span>Rebuilds &amp; Refactors</span>
+        <span>Est. One Person</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="grid12">
+        <div class="label">Refactor.me<br>No. 08</div>
+        <div class="headline">
+          <h1>Your website is <em>calling</em> for a refactor.</h1>
+        </div>
+      </div>
+      <div class="grid12 herofoot">
+        <p class="sub">We rebuild tired small business sites, hobby pages, and single-product sites. Faster, cleaner, mobile-friendly, and actually good.</p>
+        <div class="act"><a class="cta" href="#fix">Book a rebuild</a></div>
+      </div>
+    </section>
+
+    <section class="section" id="fix">
+      <div class="grid12 secrow">
+        <div class="sectitle"><h2>What we fix</h2></div>
+        <div class="seccount">06 Items / Fig. 08</div>
+      </div>
+      <div class="fixlist">
+        <div class="grid12 fixrow">
+          <div class="n">01</div>
+          <div class="t">Looks like it was built in 2009 (it was)</div>
+          <div class="tag">Aesthetics</div>
+        </div>
+        <div class="grid12 fixrow">
+          <div class="n">02</div>
+          <div class="t">Breaks the moment someone opens it on a phone</div>
+          <div class="tag">Responsive</div>
+        </div>
+        <div class="grid12 fixrow">
+          <div class="n">03</div>
+          <div class="t">Takes a small eternity to load</div>
+          <div class="tag">Performance</div>
+        </div>
+        <div class="grid12 fixrow">
+          <div class="n">04</div>
+          <div class="t">Fonts that should never have existed</div>
+          <div class="tag">Typography</div>
+        </div>
+        <div class="grid12 fixrow">
+          <div class="n">05</div>
+          <div class="t">A Flash intro (we are so sorry)</div>
+          <div class="tag">Legacy</div>
+        </div>
+        <div class="grid12 fixrow">
+          <div class="n">06</div>
+          <div class="t">Untouched since whoever set it up moved on</div>
+          <div class="tag">Maintenance</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

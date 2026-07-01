@@ -1,170 +1,68 @@
 ---
-// The signature element: a tabbed dashboard card.
-// Tab 1 (Preview): a live before/after rebuild. A grimy 2009 site crossfades
-// into a clean modern one while a cyan scan line sweeps and the health score
-// counts up. No cracks. CSS + a sliver of JS. Auto-plays on scroll, replayable.
-// Tab 2 (Metrics): the performance chart (before vs after) plus headline stats.
-// Respects reduced-motion.
+// The signature element: a live before/after rebuild card.
+// A grimy 2009 site crossfades into a clean modern one while a cyan scan line
+// sweeps and the health score counts up (41 -> 94). No cracks. CSS + a sliver
+// of JS. Auto-plays once when it scrolls into view, replayable. No tabs: the
+// numbers live in the deliverables section (WhatYouGet), so the rebuild is the
+// whole card and is visible with zero clicks. Respects reduced-motion.
 ---
 
 <figure class="rb reveal panel" aria-label="A demonstration: an outdated website rebuilt into a modern one">
-  <div class="tabs" role="tablist" aria-label="Rebuild preview">
-    <button class="tab is-on" role="tab" aria-selected="true" data-tab="metrics" id="tab-metrics" aria-controls="pane-metrics">Metrics</button>
-    <button class="tab" role="tab" aria-selected="false" data-tab="preview" id="tab-preview" aria-controls="pane-preview">Preview</button>
-    <span class="urlchip">tonys-pizza.com</span>
-  </div>
-
-  <!-- PREVIEW TAB -->
-  <div class="pane" id="pane-preview" role="tabpanel" aria-labelledby="tab-preview" hidden>
-    <div class="head">
-      <div class="ttl">
-        <span class="t">Live rebuild preview</span>
-        <span class="u">before vs after</span>
-      </div>
-      <div class="score">
-        <span class="k">health</span>
-        <span class="v"><b class="num">41</b><i class="of">/100</i></span>
-      </div>
+  <div class="head">
+    <div class="ttl">
+      <span class="t">Live rebuild preview</span>
+      <span class="u"><span class="urlchip">tonys-pizza.com</span> · before vs after</span>
     </div>
-
-    <div class="stage">
-      <div class="site before">
-        <div class="ribbon">~*~ WELCOME TO TONY'S PIZZA HOME PAGE ~*~</div>
-        <h3>Tony's Pizzeria</h3>
-        <p class="tagline"><i>Best Pizza In Town Since 1998</i></p>
-        <p class="oldnav"><a href="#0">Home</a> | <a href="#0">Menu</a> | <a href="#0">Guestbook</a></p>
-        <button class="bevel" type="button" tabindex="-1">Click Here For Specials!!!</button>
-        <div class="oldbadges">
-          <span class="ie">Best viewed in<br /><b>Internet Explorer 6</b></span>
-          <span class="counter">visitors:<br /><b>00014<span class="blink">23</span></b></span>
-        </div>
-      </div>
-
-      <div class="site after">
-        <div class="bar">
-          <span class="logo">Tony's</span>
-          <nav class="newnav"><a href="#0">Menu</a><a href="#0">Hours</a><a href="#0">Find us</a></nav>
-        </div>
-        <h3>Wood-fired pizza,<br />made the slow way.</h3>
-        <p class="sub">A small kitchen in the old town. Same family recipe since 1998, finally with a website to match.</p>
-        <div class="row">
-          <button class="cta" type="button" tabindex="-1">See the menu</button>
-          <span class="chip">Open until 23:00</span>
-        </div>
-      </div>
-
-      <span class="scan" aria-hidden="true"></span>
-    </div>
-
-    <div class="foot">
-      <button class="replay" type="button" aria-live="polite">
-        <span class="ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="15" height="15"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>
-        </span>
-        <span class="replay-label">Watch the rebuild</span>
-      </button>
-      <span class="status">before</span>
-      <span class="track" aria-hidden="true"><b class="fill"></b></span>
+    <div class="score">
+      <span class="k">health</span>
+      <span class="v"><b class="num">41</b><i class="of">/100</i></span>
     </div>
   </div>
 
-  <!-- METRICS TAB -->
-  <div class="pane is-on" id="pane-metrics" role="tabpanel" aria-labelledby="tab-metrics">
-    <div class="head">
-      <div class="ttl">
-        <span class="t">Performance over rebuild</span>
-        <span class="u">last 8 checkpoints</span>
-      </div>
-      <div class="legend">
-        <span><i style="background:var(--blue)"></i>Before</span>
-        <span><i style="background:var(--cyan)"></i>After</span>
-        <span><i style="background:var(--violet)"></i>Score</span>
+  <div class="stage">
+    <div class="site before">
+      <div class="ribbon">~*~ WELCOME TO TONY'S PIZZA HOME PAGE ~*~</div>
+      <h3>Tony's Pizzeria</h3>
+      <p class="tagline"><i>Best Pizza In Town Since 1998</i></p>
+      <p class="oldnav"><a href="#0">Home</a> | <a href="#0">Menu</a> | <a href="#0">Guestbook</a></p>
+      <button class="bevel" type="button" tabindex="-1">Click Here For Specials!!!</button>
+      <div class="oldbadges">
+        <span class="ie">Best viewed in<br /><b>Internet Explorer 6</b></span>
+        <span class="counter">visitors:<br /><b>00014<span class="blink">23</span></b></span>
       </div>
     </div>
 
-    <div class="chartbox">
-      <svg class="chart" viewBox="0 0 640 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart showing performance improvement after the refactor">
-        <defs>
-          <linearGradient id="fillCyan" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#3fc6d8" stop-opacity="0.32"/>
-            <stop offset="1" stop-color="#3fc6d8" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stop-color="#4f8cff"/>
-            <stop offset="0.5" stop-color="#3fc6d8"/>
-            <stop offset="1" stop-color="#9b6cff"/>
-          </linearGradient>
-        </defs>
-        <g stroke="#222c3f" stroke-width="1">
-          <line x1="48" y1="40"  x2="620" y2="40"/>
-          <line x1="48" y1="90"  x2="620" y2="90"/>
-          <line x1="48" y1="140" x2="620" y2="140"/>
-          <line x1="48" y1="190" x2="620" y2="190"/>
-          <line x1="48" y1="240" x2="620" y2="240"/>
-        </g>
-        <line x1="48" y1="40" x2="48" y2="240" stroke="#2c374d" stroke-width="1.5"/>
-        <line x1="48" y1="240" x2="620" y2="240" stroke="#2c374d" stroke-width="1.5"/>
-        <g fill="#8b97ad" font-size="11" font-family="ui-monospace,monospace" text-anchor="end">
-          <text x="40" y="44">100</text><text x="40" y="94">75</text><text x="40" y="144">50</text>
-          <text x="40" y="194">25</text><text x="40" y="244">0</text>
-        </g>
-        <g fill="#8b97ad" font-size="11" font-family="ui-monospace,monospace" text-anchor="middle">
-          <text x="80" y="262">w1</text><text x="157" y="262">w2</text><text x="234" y="262">w3</text>
-          <text x="311" y="262">w4</text><text x="388" y="262">w5</text><text x="465" y="262">w6</text>
-          <text x="542" y="262">w7</text><text x="610" y="262">w8</text>
-        </g>
-        <polyline fill="none" stroke="#4f8cff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 6" opacity="0.75"
-          points="80,196 157,200 234,190 311,198 388,192 465,200 542,194 610,196"/>
-        <path d="M80,188 L157,170 L234,150 L311,120 L388,96 L465,78 L542,62 L610,52 L610,240 L80,240 Z" fill="url(#fillCyan)"/>
-        <polyline fill="none" stroke="url(#lineGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"
-          points="80,188 157,170 234,150 311,120 388,96 465,78 542,62 610,52"/>
-        <g fill="#0f1420" stroke="#3fc6d8" stroke-width="2.5">
-          <circle cx="80" cy="188" r="4"/><circle cx="157" cy="170" r="4"/><circle cx="234" cy="150" r="4"/>
-          <circle cx="311" cy="120" r="4"/><circle cx="388" cy="96" r="4"/><circle cx="465" cy="78" r="4"/><circle cx="542" cy="62" r="4"/>
-        </g>
-        <circle cx="610" cy="52" r="5.5" fill="#9b6cff" stroke="#0f1420" stroke-width="2.5"/>
-      </svg>
+    <div class="site after">
+      <div class="bar">
+        <span class="logo">Tony's</span>
+        <nav class="newnav"><a href="#0">Menu</a><a href="#0">Hours</a><a href="#0">Find us</a></nav>
+      </div>
+      <h3>Wood-fired pizza,<br />made the slow way.</h3>
+      <p class="sub">A small kitchen in the old town. Same family recipe since 1998, finally with a website to match.</p>
+      <div class="row">
+        <button class="cta" type="button" tabindex="-1">See the menu</button>
+        <span class="chip">Open until 23:00</span>
+      </div>
     </div>
 
-    <div class="minigrid">
-      <div class="mtile">
-        <div class="k">Load time</div>
-        <div class="v">0.8s</div>
-        <div class="d up">71% faster</div>
-        <div class="mbar"><b style="width:24%;background:linear-gradient(90deg,var(--blue),var(--cyan))"></b></div>
-      </div>
-      <div class="mtile">
-        <div class="k">Mobile score</div>
-        <div class="v">98</div>
-        <div class="d up">from 54</div>
-        <div class="mbar"><b style="width:98%;background:linear-gradient(90deg,var(--cyan),var(--violet))"></b></div>
-      </div>
-      <div class="mtile">
-        <div class="k">Page weight</div>
-        <div class="v">312<small> kb</small></div>
-        <div class="d down">4.1 MB cut</div>
-        <div class="mbar"><b style="width:18%;background:linear-gradient(90deg,var(--violet),var(--blue))"></b></div>
-      </div>
-    </div>
+    <span class="scan" aria-hidden="true"></span>
+  </div>
+
+  <div class="foot">
+    <button class="replay" type="button" aria-live="polite">
+      <span class="ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="15" height="15"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>
+      </span>
+      <span class="replay-label">Watch the rebuild</span>
+    </button>
+    <span class="status">before</span>
+    <span class="track" aria-hidden="true"><b class="fill"></b></span>
   </div>
 </figure>
 
 <style>
   .rb{padding:14px;max-width:560px;margin-inline:auto;box-shadow:var(--shadow)}
-
-  /* tab bar */
-  .tabs{display:flex;align-items:center;gap:.4rem;padding:2px 4px 12px}
-  .tab{
-    font-family:var(--sans);font-size:.78rem;font-weight:600;color:var(--muted);
-    background:transparent;border:1px solid transparent;border-radius:9px;
-    padding:.42rem .8rem;cursor:pointer;transition:.18s var(--ease);
-  }
-  .tab:hover{color:var(--text)}
-  .tab.is-on{color:var(--text);background:var(--panel-2);border-color:var(--line)}
-  .urlchip{margin-left:auto;font-family:var(--mono);font-size:.66rem;color:var(--muted)}
-
-  .pane{display:none}
-  .pane.is-on{display:block}
+  .urlchip{font-family:var(--mono);font-size:.66rem;color:var(--muted)}
 
   .head{display:flex;align-items:center;justify-content:space-between;padding:2px 6px 12px}
   .ttl{display:flex;flex-direction:column;gap:2px}
@@ -176,9 +74,6 @@
   .score .num{color:var(--blue);transition:color .5s var(--ease)}
   .score .of{font-size:.7rem;font-weight:600;color:var(--muted);font-style:normal}
   .rb.done .score .num{color:var(--cyan)}
-  .legend{display:flex;gap:.9rem;font-size:.68rem;color:var(--muted)}
-  .legend span{display:flex;align-items:center;gap:.35rem}
-  .legend i{width:9px;height:9px;border-radius:3px;display:inline-block}
 
   .stage{
     position:relative;min-height:clamp(290px, 58vw, 340px);
@@ -244,22 +139,6 @@
   .rb.running .track .fill,.rb.done .track .fill{width:100%}
   .rb.instant .track .fill{transition:none;width:0}
 
-  /* metrics tab */
-  .chartbox{background:#121826;border:1px solid var(--line);border-radius:14px;padding:14px 12px 8px}
-  svg.chart{display:block;width:100%;height:auto}
-  .minigrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.75rem}
-  .mtile{background:var(--panel-deep);border:1px solid var(--line);border-radius:12px;padding:.75rem .8rem}
-  .mtile .k{font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-  .mtile .v{font-size:1.3rem;font-weight:800;letter-spacing:-.02em;margin-top:.35rem}
-  .mtile .v small{font-size:.72rem;color:var(--muted)}
-  .mtile .d{font-size:.66rem;margin-top:.15rem;font-weight:600}
-  .mtile .d.up{color:var(--cyan)}
-  .mtile .d.down{color:var(--blue)}
-  .mbar{height:4px;border-radius:3px;margin-top:.5rem;background:#1f2a3d;overflow:hidden}
-  .mbar b{display:block;height:100%;border-radius:3px}
-
-  @media (max-width:480px){.minigrid{grid-template-columns:1fr 1fr}}
-
   @media (prefers-reduced-motion: reduce){
     .scan{display:none}
     .before .blink{animation:none}
@@ -270,44 +149,6 @@
 <script>
   const demo = document.querySelector<HTMLElement>('.rb');
   if (demo) {
-    // --- tabs ---
-    const tabs = Array.from(demo.querySelectorAll<HTMLButtonElement>('.tab'));
-    const panes = {
-      preview: demo.querySelector<HTMLElement>('#pane-preview'),
-      metrics: demo.querySelector<HTMLElement>('#pane-metrics'),
-    };
-    let everShown = false;
-    tabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        const which = tab.dataset.tab as 'preview' | 'metrics';
-        tabs.forEach((t) => {
-          const on = t === tab;
-          t.classList.toggle('is-on', on);
-          t.setAttribute('aria-selected', on ? 'true' : 'false');
-        });
-        (['preview', 'metrics'] as const).forEach((key) => {
-          const p = panes[key];
-          if (!p) return;
-          const on = key === which;
-          p.classList.toggle('is-on', on);
-          p.hidden = !on;
-        });
-        // play the rebuild the first time the Preview tab is opened
-        if (which === 'preview' && !everShown) {
-          everShown = true;
-          if (reduce) {
-            demo!.classList.add('done');
-            setStatus('after');
-            if (num) num.textContent = '94';
-            if (label) label.textContent = 'Show the before';
-          } else {
-            window.setTimeout(play, 250);
-          }
-        }
-      });
-    });
-
-    // --- before/after rebuild ---
     const btn = demo.querySelector<HTMLButtonElement>('.replay');
     const status = demo.querySelector<HTMLElement>('.status');
     const num = demo.querySelector<HTMLElement>('.score .num');
@@ -352,5 +193,37 @@
     }
 
     btn?.addEventListener('click', () => (reduce ? toggleInstant() : play()));
+
+    // auto-play the rebuild once when the card first scrolls into view
+    let started = false;
+    function startAuto() {
+      if (started) return;
+      started = true;
+      if (reduce) {
+        demo!.classList.add('done');
+        setStatus('after');
+        if (num) num.textContent = '94';
+        if (label) label.textContent = 'Show the before';
+      } else {
+        window.setTimeout(play, 250);
+      }
+    }
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) {
+              io.disconnect();
+              startAuto();
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      io.observe(demo);
+    } else {
+      startAuto();
+    }
   }
 </script>

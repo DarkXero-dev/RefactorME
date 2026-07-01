@@ -23,6 +23,13 @@
         <div class="mrow"><span>Who you deal with</span><b>one human</b></div>
       </div>
     </div>
+
+    <p class="guarantee reveal">
+      <span class="gi" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.4-3 8.2-7 9.5C8 19.2 5 15.4 5 11V6l7-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      See a free preview before you pay a cent. Not happy with it? You don't pay.
+    </p>
   </div>
 </section>
 
@@ -39,4 +46,13 @@
   .mrow span{color:var(--muted)}
   .mrow b{font-weight:700}
   .mrow b.good{color:var(--cyan)}
+
+  .guarantee{
+    display:flex;align-items:center;gap:.7rem;justify-content:center;text-align:center;
+    margin-top:1.2rem;padding:.95rem 1.2rem;
+    background:rgba(63,198,216,.07);border:1px solid rgba(63,198,216,.28);border-radius:13px;
+    color:var(--soft);font-weight:600;font-size:.95rem;
+  }
+  .guarantee .gi{flex:0 0 auto;display:inline-flex;color:var(--cyan)}
+  @media (max-width:480px){.guarantee{flex-direction:column;gap:.5rem;font-size:.9rem}}
 </style>

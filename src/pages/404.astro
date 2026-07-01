@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Page not found · Refaktor.me" description="That page does not exist. Head back to Refaktor.me.">
+  <main class="nf">
+    <div class="wrap">
+      <span class="tag">error 404</span>
+      <h1>This page got <span class="grad">refactored away</span>.</h1>
+      <p>The link is broken or the page never existed. No harm done, let's get you back.</p>
+      <div class="cta">
+        <a class="btn" href="/">Back to home</a>
+        <a class="btn ghost" href="/#contact">Get a refactor</a>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .nf{min-height:70vh;display:grid;place-items:center;text-align:center}
+  .nf .wrap{max-width:640px}
+  .nf h1{
+    font-family:var(--sans);font-weight:800;
+    font-size:clamp(1.9rem,1.2rem+3vw,3rem);letter-spacing:-.03em;line-height:1.05;
+    margin:.6rem 0 1rem;
+  }
+  .nf h1 .grad{background:var(--grad-tri);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nf p{color:var(--muted);max-width:46ch;margin:0 auto 1.8rem;text-align:center}
+  .nf .cta{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+</style>

@@ -1,0 +1,104 @@
+---
+// Expandable FAQ. Native <details>/<summary>: accessible, keyboard-friendly,
+// zero JS, no bloat. Same Q/A feed the FAQPage structured data below for
+// rich results in search.
+const faqs = [
+  [
+    'How much does it cost?',
+    'Most projects land between €150 and €400, depending on what is involved. You get the exact price before any work starts. No packages, no surprises.',
+  ],
+  [
+    'How long does it take?',
+    'Most sites go live in about 5 to 7 days once I have your content. Small tweaks are faster. I tell you the timeline up front.',
+  ],
+  [
+    'Do I keep my domain and hosting?',
+    'Yes. Your domain and hosting stay yours. I work with what you already have, or help you move to something simpler if you want.',
+  ],
+  [
+    'I only need a small tweak, not a full rebuild.',
+    'That is fine. Small jobs are welcome and get the same quote-first treatment. Tell me what you need and I will price just that.',
+  ],
+  [
+    'What is the difference between a refactor and a redesign?',
+    'A refactor keeps your site but rebuilds it clean, fast, and mobile-friendly. A redesign changes how it looks. I do both, so just say which you are after.',
+  ],
+  [
+    'What do you need from me to start?',
+    'Your current site or content, and a sentence or two on what you want done. That is enough to get a preview and a price back to you.',
+  ],
+  [
+    'Who actually does the work?',
+    'One person, start to finish. No agency, no ticket queue, no handoffs. You talk to the same human who builds your site.',
+  ],
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(([q, a]) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+---
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="tag">questions</span>
+        <h2>Before you <span class="grad">ask</span>.</h2>
+      </div>
+      <p>The things people want to know before getting in touch.</p>
+    </div>
+
+    <div class="faqlist reveal">
+      {faqs.map(([q, a], i) => (
+        <details class="faq" open={i === 0}>
+          <summary>
+            <span class="q">{q}</span>
+            <span class="ind" aria-hidden="true"></span>
+          </summary>
+          <div class="a"><p>{a}</p></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+
+<style>
+  .faqlist{display:grid;gap:.7rem}
+  .faq{
+    background:linear-gradient(180deg, var(--panel), var(--panel-deep));
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    transition:border-color .18s var(--ease);
+  }
+  .faq[open]{border-color:var(--line-2)}
+  .faq summary{
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:1.05rem 1.2rem;cursor:pointer;list-style:none;
+    font-weight:600;font-size:1rem;letter-spacing:-.01em;color:var(--text);
+  }
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary:hover .q{color:#fff}
+  .faq .q{flex:1}
+  /* plus / minus indicator */
+  .ind{position:relative;flex:0 0 auto;width:18px;height:18px}
+  .ind::before,.ind::after{
+    content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    background:var(--cyan);border-radius:2px;transition:transform .2s var(--ease), opacity .2s var(--ease);
+  }
+  .ind::before{width:14px;height:2px}
+  .ind::after{width:2px;height:14px}
+  .faq[open] .ind::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0}
+  .faq .a{padding:0 1.2rem 1.15rem}
+  .faq .a p{color:var(--soft);font-size:.92rem;line-height:1.6;max-width:66ch}
+
+  @media (prefers-reduced-motion: reduce){
+    .faq,.ind::before,.ind::after{transition:none}
+  }
+</style>

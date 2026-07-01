@@ -4,12 +4,38 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
 const {
   title = "Refaktor.me, small sites rebuilt by one person who knows what they're doing",
   description = 'Refaktor.me rebuilds tired small business sites, hobby pages, and single-product sites. Faster, cleaner, mobile-friendly, and actually good.',
+  image = '/og.webp',
 } = Astro.props;
+
+// Absolute URLs for canonical + social cards (Astro.site = https://refaktor.me).
+const site = Astro.site ?? new URL('https://refaktor.me');
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImage = new URL(image, site).href;
+
+// Structured data: a one-person website-refactoring service.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Refaktor.me',
+  description,
+  url: site.href,
+  image: ogImage,
+  priceRange: '€150-€400',
+  areaServed: 'Worldwide',
+  serviceType: 'Website refactoring and rebuilding',
+  founder: { '@type': 'Person', name: 'DarkXero' },
+  makesOffer: {
+    '@type': 'Offer',
+    description: 'Refactor and rebuild of small business, hobby, and single-product websites',
+    priceCurrency: 'EUR',
+  },
+};
 ---
 
 <!doctype html>
@@ -21,8 +47,30 @@ const {
     <meta name="theme-color" content="#0f1420" />
     <meta name="color-scheme" content="dark" />
     <meta name="format-detection" content="telephone=no" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="DarkXero" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Refaktor.me" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Refaktor.me, a live before and after site rebuild" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,38 +80,7 @@ const {
     />
   </head>
   <body>
-    <div class="demo-ribbon" aria-hidden="true"><span>Design Demo</span></div>
     <slot />
-
-    <style>
-      /* fixed diagonal corner ribbon flagging this as a demo build */
-      .demo-ribbon{
-        position:fixed;top:0;right:0;
-        width:150px;height:150px;overflow:hidden;
-        z-index:200;pointer-events:none;
-      }
-      .demo-ribbon span{
-        position:absolute;top:30px;right:-42px;
-        width:190px;text-align:center;
-        transform:rotate(45deg);
-        background:linear-gradient(135deg,#e23b3b,#b81c1c);
-        color:#fff;
-        font-family:'Schibsted Grotesk',system-ui,sans-serif;
-        font-weight:800;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
-        padding:.42rem 0;
-        box-shadow:0 6px 16px rgba(0,0,0,.45);
-        border-top:1px solid rgba(255,255,255,.3);
-        border-bottom:1px solid rgba(0,0,0,.25);
-      }
-      @media (max-width:520px){
-        .demo-ribbon{width:104px;height:104px}
-        .demo-ribbon span{top:22px;right:-30px;width:132px;font-size:.58rem;letter-spacing:.06em;padding:.3rem 0}
-      }
-      @media (max-width:400px){
-        .demo-ribbon{width:92px;height:92px}
-        .demo-ribbon span{top:19px;right:-28px;width:118px;font-size:.52rem;letter-spacing:.05em;padding:.26rem 0}
-      }
-    </style>
 
     <script>
       // Gentle scroll reveal. No dependencies.

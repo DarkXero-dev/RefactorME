@@ -29,6 +29,17 @@ const steps = [
         </li>
       ))}
     </ol>
+
+    <div class="prep reveal">
+      <div class="pchip">
+        <span class="pk">Typical turnaround</span>
+        <span class="pv">5 to 7 days, once we have your content</span>
+      </div>
+      <div class="pchip">
+        <span class="pk">What we need from you</span>
+        <span class="pv">Your current site or content, and a sentence on what you want done</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -46,4 +57,14 @@ const steps = [
   .dots{flex:1;height:2px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--line-2) 0 6px,transparent 6px 12px)}
   .stage h3{font-weight:700;font-size:1.05rem;letter-spacing:-.01em;margin-bottom:.3rem}
   .stage p{color:var(--muted);font-size:.86rem;margin:0}
+
+  .prep{display:grid;gap:1rem;margin-top:1.2rem}
+  @media (min-width:760px){.prep{grid-template-columns:1fr 1fr}}
+  .pchip{
+    display:flex;flex-direction:column;gap:.35rem;
+    padding:1.05rem 1.2rem;background:var(--panel-2);
+    border:1px solid var(--line);border-radius:13px;
+  }
+  .pchip .pk{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .pchip .pv{font-weight:700;font-size:.95rem;letter-spacing:-.01em;color:var(--text)}
 </style>

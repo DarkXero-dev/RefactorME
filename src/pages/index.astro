@@ -8,6 +8,7 @@ import HowItWorks from '../components/HowItWorks.astro';
 import WhatWeBuild from '../components/WhatWeBuild.astro';
 import SamplesSection from '../components/SamplesSection.astro';
 import Pricing from '../components/Pricing.astro';
+import Faq from '../components/Faq.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 
@@ -32,6 +33,7 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
           <a href="#build">What we rebuild</a>
           <a href="#samples">Samples</a>
           <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
         </div>
         <span class={`pill ${online ? 'on' : 'off'}`}>
           <span class="dot" aria-hidden="true"></span>{online ? 'online' : 'offline'}
@@ -53,6 +55,7 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
         <a href="#build">What we rebuild</a>
         <a href="#samples">Samples</a>
         <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
         <a class="btn m-cta" href="#contact">Get a refactor</a>
       </div>
     </div>
@@ -67,10 +70,16 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
     <WhatWeBuild />
     <SamplesSection />
     <Pricing />
+    <Faq />
     <Contact />
   </main>
 
   <Footer />
+
+  <a class="mobile-cta" href="#contact">
+    Get a refactor
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
 </Layout>
 
 <style>
@@ -81,8 +90,7 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
     backdrop-filter:saturate(140%) blur(10px);
     -webkit-backdrop-filter:saturate(140%) blur(10px);
   }
-  /* reserve room on the right so the CTA clears the Design Demo corner ribbon */
-  .topbar .inner{display:flex;align-items:center;justify-content:space-between;height:64px;padding-right:90px}
+  .topbar .inner{display:flex;align-items:center;justify-content:space-between;height:64px}
   .brand{display:flex;align-items:center;gap:.7rem;font-weight:800;font-size:1.12rem;letter-spacing:-.02em;color:var(--text)}
   .brand .dot{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--grad);box-shadow:0 6px 18px rgba(79,140,255,.35)}
   .brand .me{color:var(--cyan)}
@@ -155,14 +163,29 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
     .menu-btn{display:inline-flex}
     .mobile-menu{display:block}
   }
-  @media (max-width:520px){.topbar .inner{padding-right:58px}}
   @media (max-width:400px){
     .topbar .wrap{height:58px}
-    .topbar .inner{padding-right:52px}
     .brand{font-size:1.05rem;gap:.5rem}
     .brand .dot{width:26px;height:26px}
     .nav{gap:.6rem}
   }
+
+  /* ---------- sticky mobile CTA ---------- */
+  .mobile-cta{
+    display:none;
+    position:fixed;left:0;right:0;bottom:0;z-index:60;
+    align-items:center;justify-content:center;gap:.55rem;
+    background:var(--grad);color:#fff;font-weight:700;font-size:1rem;
+    padding:.95rem 1.2rem;
+    padding-bottom:calc(.95rem + env(safe-area-inset-bottom));
+    box-shadow:0 -8px 26px rgba(0,0,0,.4);
+    border-top:1px solid rgba(255,255,255,.14);
+    transition:transform .25s var(--ease), opacity .25s var(--ease);
+  }
+  @media (max-width:640px){.mobile-cta{display:flex}}
+  /* slide out when the contact form is on screen (no point nagging there) */
+  .mobile-cta.hide{transform:translateY(120%);opacity:0;pointer-events:none}
+  @media (prefers-reduced-motion: reduce){.mobile-cta{transition:none}}
 </style>
 
 <script>
@@ -183,5 +206,26 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') setOpen(false);
     });
+  }
+
+  // hide the sticky mobile CTA once the contact form (or the footer beyond it)
+  // is in view, and keep it hidden all the way down so it never covers them
+  const cta = document.querySelector<HTMLElement>('.mobile-cta');
+  const contact = document.getElementById('contact');
+  const footer = document.querySelector<HTMLElement>('footer');
+  if (cta && contact && 'IntersectionObserver' in window) {
+    const seen = new Set<Element>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) seen.add(en.target);
+          else seen.delete(en.target);
+        });
+        cta.classList.toggle('hide', seen.size > 0);
+      },
+      { threshold: 0.18 }
+    );
+    io.observe(contact);
+    if (footer) io.observe(footer);
   }
 </script>

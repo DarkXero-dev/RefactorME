@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /previews/
+
+Sitemap: https://refaktor.me/sitemap.xml

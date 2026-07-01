@@ -4,7 +4,7 @@ import { defineConfig } from 'astro/config';
 // Two build modes, selected by the SERVER_BUILD env var:
 //
 //   (default)        Static export for the GitHub Pages DRAFT.
-//                    base = '/refactor-me/'. The preview API route is
+//                    base = '/refaktor-me/'. The preview API route is
 //                    prerendered to a harmless stub; the button is inert.
 //
 //   SERVER_BUILD=1   Server build for the LIVE deploy (Vercel by default),
@@ -25,7 +25,7 @@ export default defineConfig({
   // base must match the GitHub repo name exactly (case-sensitive).
   // Repo: https://github.com/DarkXero-dev/RefactorME
   // Live draft URL: https://darkxero-dev.github.io/RefactorME/
-  site: serverBuild ? 'https://refactor.me' : 'https://darkxero-dev.github.io',
+  site: serverBuild ? 'https://refaktor.me' : 'https://darkxero-dev.github.io',
   base: serverBuild ? '/' : '/RefactorME/',
   output: serverBuild ? 'server' : 'static',
   adapter,

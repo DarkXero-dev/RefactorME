@@ -4,7 +4,7 @@
 import { PreviewError } from './config';
 
 const UA =
-  'Mozilla/5.0 (compatible; RefactorMePreviewBot/1.0; +https://refactor.me)';
+  'Mozilla/5.0 (compatible; RefaktorMePreviewBot/1.0; +https://refaktor.me)';
 
 export async function fetchSite(
   url: string,

@@ -40,7 +40,7 @@ export function getConfig(env: AnyEnv = readEnv()): PreviewConfig {
 // The one message a visitor ever sees on any failure. Turns a dead end
 // into a lead. No em dashes.
 export const FALLBACK_MESSAGE =
-  'We could not get a clean read on that site automatically. Email the URL to hello@refactor.me and we will mock up a preview by hand.';
+  'We could not get a clean read on that site automatically. Email the URL to hello@refaktor.me and we will mock up a preview by hand.';
 
 export class PreviewError extends Error {
   constructor(public code: string, message: string) {

@@ -67,7 +67,7 @@ export const POST: APIRoute = async ({ request }) => {
           ok: false,
           error: code,
           message:
-            'The preview tool is resting for now. Email the URL to hello@refactor.me and we will mock up a preview by hand.',
+            'The preview tool is resting for now. Email the URL to hello@refaktor.me and we will mock up a preview by hand.',
         },
         429
       );

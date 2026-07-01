@@ -1,5 +1,5 @@
-# Refactor.me
+# Refaktor.me
 
-Design Concept for future Refactor.me site by DarkXero.
+Design Concept for future Refaktor.me site by DarkXero.
 
-![Refactor.me design concept](Preview.webp)
+![Refaktor.me design concept](Preview.webp)

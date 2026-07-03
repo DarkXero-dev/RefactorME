@@ -11,7 +11,7 @@ const endpoint = `${import.meta.env.BASE_URL}api/preview`;
 <section id="try" class="try">
   <div class="wrap">
     <div class="try-head reveal">
-      <span class="tag">live preview</span>
+      <span class="tag">try it</span>
       <h2>See your site, <span class="grad">refactored</span>.</h2>
       <p>Paste your URL. We read it and reimagine the homepage, dark and modern. A rough draft, on the house.</p>
     </div>
@@ -38,7 +38,7 @@ const endpoint = `${import.meta.env.BASE_URL}api/preview`;
         <div class="cf-turnstile" data-sitekey={sitekey} data-size="flexible"></div>
       )}
 
-      {!enabled && <p class="soon">Live preview coming soon.</p>}
+      {!enabled && <p class="soon">Coming soon.</p>}
 
       <div class="state" hidden>
         <div class="loading" hidden>

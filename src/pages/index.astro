@@ -11,6 +11,7 @@ import Pricing from '../components/Pricing.astro';
 import Faq from '../components/Faq.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+import ProgressRail from '../components/ProgressRail.astro';
 
 // Site status switch. Default offline (red) until launch. Flip to true
 // (PUBLIC_SITE_ONLINE=true) and rebuild to show green "online". See README.
@@ -28,9 +29,7 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
       </a>
       <nav class="nav">
         <div class="links">
-          <a href="#fix">Diagnostics</a>
-          <a href="#try">Live preview</a>
-          <a href="#build">What we rebuild</a>
+          <a href="#try">Try it</a>
           <a href="#samples">Samples</a>
           <a href="#pricing">Pricing</a>
           <a href="#faq">FAQ</a>
@@ -50,9 +49,7 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
         <span class={`pill ${online ? 'on' : 'off'} m-pill`}>
           <span class="dot" aria-hidden="true"></span>{online ? 'online' : 'offline'}
         </span>
-        <a href="#fix">Diagnostics</a>
-        <a href="#try">Live preview</a>
-        <a href="#build">What we rebuild</a>
+        <a href="#try">Try it</a>
         <a href="#samples">Samples</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
@@ -75,6 +72,8 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
   </main>
 
   <Footer />
+
+  <ProgressRail />
 
   <a class="mobile-cta" href="#contact">
     Get a refactor
@@ -168,6 +167,10 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
     .brand{font-size:1.05rem;gap:.5rem}
     .brand .dot{width:26px;height:26px}
     .nav{gap:.6rem}
+  }
+  /* match the widened hero on big screens so brand + nav sit at the hero edges */
+  @media (min-width:1360px){
+    .topbar .inner{max-width:min(1600px,92vw)}
   }
 
   /* ---------- sticky mobile CTA ---------- */

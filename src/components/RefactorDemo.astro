@@ -2,9 +2,10 @@
 // The signature element: a live before/after rebuild card.
 // A grimy 2009 site crossfades into a clean modern one while a cyan scan line
 // sweeps and the health score counts up (41 -> 94). No cracks. CSS + a sliver
-// of JS. Auto-plays once when it scrolls into view, replayable. No tabs: the
-// numbers live in the deliverables section (WhatYouGet), so the rebuild is the
-// whole card and is visible with zero clicks. Respects reduced-motion.
+// of JS. Auto-LOOPS on a ~16s cycle while in view (no replay button); pauses
+// when scrolled offscreen or the tab is hidden. No tabs: the numbers live in
+// the deliverables section (WhatYouGet), so the rebuild is the whole card and
+// is visible with zero clicks. Respects reduced-motion (static "after").
 ---
 
 <figure class="rb reveal panel" aria-label="A demonstration: an outdated website rebuilt into a modern one">
@@ -49,12 +50,9 @@
   </div>
 
   <div class="foot">
-    <button class="replay" type="button" aria-live="polite">
-      <span class="ico" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="15" height="15"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>
-      </span>
-      <span class="replay-label">Watch the rebuild</span>
-    </button>
+    <span class="loops" aria-hidden="true">
+      <span class="ldot"></span>auto rebuild
+    </span>
     <span class="status">before</span>
     <span class="track" aria-hidden="true"><b class="fill"></b></span>
   </div>
@@ -128,10 +126,9 @@
 
   /* footer / control */
   .foot{display:flex;align-items:center;gap:.9rem;margin-top:.95rem;padding:0 4px;flex-wrap:wrap}
-  .replay{font-family:var(--sans);font-size:.82rem;font-weight:600;color:var(--text);background:var(--panel-2);border:1px solid var(--line);border-radius:999px;padding:.5rem .9rem;display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;transition:border-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease)}
-  .replay:hover{border-color:var(--blue);color:var(--cyan);transform:translateY(-1px)}
-  .replay .ico{display:inline-flex;transition:transform .5s var(--ease)}
-  .replay:hover .ico{transform:rotate(-180deg)}
+  .loops{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .loops .ldot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 7px 1px rgba(63,198,216,.6);animation:demo-loopdot 1.8s ease-in-out infinite}
+  @keyframes demo-loopdot{0%,100%{opacity:.35;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
   .status{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
   .rb.running .status,.rb.done .status{color:var(--cyan)}
   .track{flex:1 1 80px;height:4px;min-width:70px;border-radius:3px;background:#1f2a3d;overflow:hidden}
@@ -143,21 +140,69 @@
     .scan{display:none}
     .before .blink{animation:none}
     .after,.track .fill{transition:none}
+    .loops .ldot{animation:none}
+    .loops{display:none}
+  }
+
+  /* Large screens: scale the whole card up as one unit (panel height + every
+     inner element together), so it grows with the hero instead of just widening. */
+  @media (min-width:1360px){
+    .rb{padding:18px}
+    .head{padding:2px 8px 15px}
+    .ttl .t{font-size:1rem}
+    .ttl .u,.urlchip{font-size:.78rem}
+    .score .k{font-size:.72rem}
+    .score .v{font-size:1.35rem}
+    .score .of{font-size:.82rem}
+
+    .stage{min-height:clamp(400px,30vw,470px)}
+    .site{padding:clamp(1.6rem,2.4vw,2.2rem)}
+
+    .ribbon{font-size:.85rem}
+    .before h3{font-size:clamp(2rem,3vw,2.55rem)}
+    .before .tagline{font-size:1.14rem}
+    .before .oldnav{font-size:1.08rem}
+    .before .bevel{font-size:.95rem}
+    .before .ie,.before .counter{font-size:.72rem}
+
+    .after .logo{font-size:1.6rem}
+    .after .newnav a{font-size:1rem}
+    .after .newnav{gap:1.4rem}
+    .after h3{font-size:clamp(2rem,3vw,2.6rem)}
+    .after .sub{font-size:1.08rem;max-width:42ch}
+    .after .cta{font-size:1.02rem;padding:.7rem 1.25rem}
+    .after .chip{font-size:.88rem;padding:.4rem .85rem}
+
+    .foot{margin-top:1.15rem}
+    .loops{font-size:.74rem}
+    .status{font-size:.76rem}
+    .track{height:5px}
   }
 </style>
 
 <script>
   const demo = document.querySelector<HTMLElement>('.rb');
   if (demo) {
-    const btn = demo.querySelector<HTMLButtonElement>('.replay');
     const status = demo.querySelector<HTMLElement>('.status');
     const num = demo.querySelector<HTMLElement>('.score .num');
-    const label = demo.querySelector<HTMLElement>('.replay-label');
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let playing = false;
-    let countTimer = 0;
+
+    // full loop period: rebuild (~2.65s) then linger on the "after" for the rest.
+    // ~16s keeps it in the 15-20s the visitor asked for without feeling frantic.
+    const CYCLE = 16000;
 
     const setStatus = (t: string) => { if (status) status.textContent = t; };
+
+    let countTimer = 0;
+    let cycleTimer = 0;
+    const steps: number[] = [];
+    const clearTimers = () => {
+      steps.forEach((id) => window.clearTimeout(id));
+      steps.length = 0;
+      window.clearTimeout(cycleTimer);
+      window.clearInterval(countTimer);
+    };
+    const step = (fn: () => void, ms: number) => { steps.push(window.setTimeout(fn, ms)); };
 
     function countTo(target: number) {
       if (!num) return;
@@ -170,60 +215,60 @@
       }, 70);
     }
 
+    // one rebuild pass; reschedules itself for a seamless loop
     function play() {
-      if (playing) return;
-      playing = true;
-      if (label) label.textContent = 'Watch it again';
+      clearTimers();
       demo!.classList.add('instant');
       demo!.classList.remove('done', 'running');
       if (num) num.textContent = '41';
       void demo!.offsetWidth;
       demo!.classList.remove('instant');
       setStatus('before');
-      window.setTimeout(() => { setStatus('rebuilding'); demo!.classList.add('running'); }, 950);
-      window.setTimeout(() => { demo!.classList.add('done'); setStatus('after'); countTo(94); }, 1250);
-      window.setTimeout(() => { demo!.classList.remove('running'); playing = false; }, 2650);
+      step(() => { setStatus('rebuilding'); demo!.classList.add('running'); }, 950);
+      step(() => { demo!.classList.add('done'); setStatus('after'); countTo(94); }, 1250);
+      step(() => { demo!.classList.remove('running'); }, 2650);
+      cycleTimer = window.setTimeout(play, CYCLE);
     }
 
-    function toggleInstant() {
-      const done = demo!.classList.toggle('done');
-      setStatus(done ? 'after' : 'before');
-      if (num) num.textContent = done ? '94' : '41';
-      if (label) label.textContent = done ? 'Show the before' : 'Show the after';
+    let running = false;
+    function startLoop() {
+      if (running || reduce) return;
+      running = true;
+      play();
+    }
+    function stopLoop() {
+      running = false;
+      clearTimers();
     }
 
-    btn?.addEventListener('click', () => (reduce ? toggleInstant() : play()));
-
-    // auto-play the rebuild once when the card first scrolls into view
-    let started = false;
-    function startAuto() {
-      if (started) return;
-      started = true;
-      if (reduce) {
-        demo!.classList.add('done');
-        setStatus('after');
-        if (num) num.textContent = '94';
-        if (label) label.textContent = 'Show the before';
-      } else {
-        window.setTimeout(play, 250);
-      }
-    }
-
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((en) => {
-            if (en.isIntersecting) {
-              io.disconnect();
-              startAuto();
-            }
-          });
-        },
-        { threshold: 0.3 }
-      );
-      io.observe(demo);
+    // reduced motion: no loop, just show the finished "after" state
+    if (reduce) {
+      demo.classList.add('done');
+      setStatus('after');
+      if (num) num.textContent = '94';
     } else {
-      startAuto();
+      let inView = false;
+      const refresh = () => {
+        if (inView && !document.hidden) startLoop();
+        else stopLoop();
+      };
+
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((en) => { inView = en.isIntersecting; });
+            refresh();
+          },
+          { threshold: 0.3 }
+        );
+        io.observe(demo);
+      } else {
+        inView = true;
+        refresh();
+      }
+
+      // stop the loop while the tab is hidden, resume on return
+      document.addEventListener('visibilitychange', refresh);
     }
   }
 </script>

@@ -12,7 +12,7 @@ const year = new Date().getFullYear();
         </span>
         <span class="word">Refaktor<span class="me">.me</span></span>
       </span>
-      <span class="desc">Small sites rebuilt by one person who knows what they're doing.</span>
+      <span class="desc">Small sites, rebuilt right.</span>
     </div>
     <div class="right">
       <span class={`status ${online ? 'on' : 'off'}`}>status: {online ? 'all systems good' : 'offline'}</span>
@@ -36,5 +36,5 @@ const year = new Date().getFullYear();
   .status{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
   .status.off{color:#ff9093}
   .status.on{color:#73e3b4}
-  @media (max-width:560px){.right{text-align:left}}
+  @media (max-width:560px){.right{text-align:left}.inner{gap:.8rem 1.1rem}}
 </style>

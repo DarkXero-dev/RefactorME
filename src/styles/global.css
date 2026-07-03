@@ -43,6 +43,8 @@
 
 html{
   scroll-behavior:smooth;
+  /* clear the 64px sticky topbar on any anchor jump (nav, rail, in-page links) */
+  scroll-padding-top:80px;
   -webkit-text-size-adjust:100%;   /* stop iOS/Android inflating text in landscape */
   text-size-adjust:100%;
 }

@@ -1,0 +1,120 @@
+---
+// Desktop-only right-rail section tracker. Shows where you are in the page
+// and that there is more below, so visitors stop skipping past sections.
+// Hidden under 1300px (needs gutter room); pure anchor links + IO highlight.
+const dots = [
+  ['hero', 'Top'],
+  ['try', 'Try it'],
+  ['fix', 'Diagnostics'],
+  ['get', 'What you get'],
+  ['how', 'Process'],
+  ['build', 'What we build'],
+  ['samples', 'Samples'],
+  ['pricing', 'Pricing'],
+  ['faq', 'FAQ'],
+  ['contact', 'Contact'],
+];
+---
+
+<nav class="prail" aria-label="Page sections">
+  {dots.map(([id, label]) => (
+    <a href={`#${id}`} data-target={id} class="pd">
+      <span class="plabel">{label}</span>
+      <span class="pdot" aria-hidden="true"></span>
+    </a>
+  ))}
+</nav>
+
+<style>
+  .prail{
+    display:none;
+    position:fixed;top:50%;right:1.15rem;transform:translateY(-50%);
+    z-index:40;flex-direction:column;gap:.85rem;
+  }
+  @media (min-width:1300px){.prail{display:flex}}
+
+  .pd{
+    display:flex;align-items:center;justify-content:flex-end;gap:.6rem;
+    position:relative;
+  }
+  /* the pipeline wire: a segment linking each node up to the previous one.
+     dim ahead of you, glowing cyan for the path already travelled. */
+  .pd::before{
+    content:"";position:absolute;right:3px;width:2px;height:.85rem;
+    bottom:calc(50% + 5px);border-radius:2px;
+    background:var(--line-2);
+    transition:background .3s var(--ease);
+  }
+  .pd:first-child::before{display:none}
+  .pd.past::before,.pd.active::before{
+    background:linear-gradient(180deg,var(--cyan),var(--blue));
+  }
+
+  /* nodes */
+  .pdot{
+    width:8px;height:8px;flex:0 0 auto;border-radius:50%;
+    border:1.5px solid var(--line-2);background:transparent;
+    transition:transform .2s var(--ease),border-color .2s var(--ease),background .2s var(--ease),box-shadow .2s var(--ease);
+  }
+  .pd:hover .pdot{border-color:var(--blue)}
+  /* travelled: small filled cyan commit node */
+  .pd.past .pdot{
+    background:var(--cyan);border-color:transparent;
+    box-shadow:0 0 6px rgba(63,198,216,.5);
+  }
+  /* you are here: big gradient node with a halo */
+  .pd.active .pdot{
+    background:var(--grad);border-color:transparent;transform:scale(1.55);
+    box-shadow:0 0 0 4px rgba(79,140,255,.16),0 0 11px rgba(63,198,216,.6);
+  }
+
+  /* label: monospace + lowercase like the section tags, slides in on hover/active */
+  .plabel{
+    font-family:var(--mono);font-size:.66rem;font-weight:500;
+    text-transform:lowercase;letter-spacing:.02em;color:var(--soft);
+    white-space:nowrap;
+    opacity:0;transform:translateX(6px);pointer-events:none;
+    transition:opacity .18s var(--ease),transform .18s var(--ease);
+  }
+  .plabel::before{content:"\203a ";color:var(--cyan);font-weight:700}
+  /* labels reveal on hover only, so they never overlap content in a tight gutter.
+     the glowing active node already marks "you are here" at rest. */
+  .pd:hover .plabel{opacity:1;transform:translateX(0)}
+  .pd.active:hover .plabel{color:var(--text)}
+
+  @media (prefers-reduced-motion: reduce){
+    .pdot,.plabel,.pd::before{transition:none}
+  }
+</style>
+
+<script>
+  const rail = document.querySelector('.prail');
+  if (rail) {
+    const links = Array.from(rail.querySelectorAll<HTMLAnchorElement>('a.pd'));
+    const setActive = (id: string) => {
+      const idx = links.findIndex((l) => l.dataset.target === id);
+      links.forEach((l, i) => {
+        l.classList.toggle('active', i === idx);
+        l.classList.toggle('past', i < idx);
+        if (i === idx) l.setAttribute('aria-current', 'true');
+        else l.removeAttribute('aria-current');
+      });
+    };
+    const sections = links
+      .map((l) => document.getElementById(l.dataset.target || ''))
+      .filter((el): el is HTMLElement => !!el);
+
+    if ('IntersectionObserver' in window && sections.length) {
+      // a section is "current" when it crosses the vertical middle of the viewport
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) setActive((en.target as HTMLElement).id);
+          });
+        },
+        { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+      );
+      sections.forEach((s) => io.observe(s));
+    }
+  }
+</script>

@@ -39,10 +39,11 @@ import RefactorDemo from './RefactorDemo.astro';
      section never peeks above the fold, no matter the resolution. Then scrolling
      - and the scroll cue - actually mean something. svh keeps mobile honest. */
   .hero{
+    position:relative;
     min-height:calc(100vh - 64px);
     min-height:calc(100svh - 64px);
     display:flex;flex-direction:column;
-    padding-top:clamp(1.4rem,3vw,2.4rem);padding-bottom:clamp(4rem,11vh,9rem);
+    padding-top:clamp(1.4rem,3vw,2.4rem);padding-bottom:clamp(4.5rem,8vh,6rem);
   }
   .inner{display:grid;gap:clamp(1.8rem,3.4vw,3.6rem);align-items:center;align-content:center;flex:1 1 auto}
   @media (min-width:980px){.inner{grid-template-columns:1.02fr 1.18fr}}
@@ -52,6 +53,19 @@ import RefactorDemo from './RefactorDemo.astro';
      Only the hero widens; content sections below stay readable at 1240. */
   @media (min-width:1360px){
     .hero .inner{max-width:min(1600px,92vw)}
+  }
+
+  /* Short viewports (small laptops, browser chrome eating height): scale the
+     whole hero - headline, subtext, spacing - DOWN so the content block does
+     not crowd the scroll cue at the bottom. Card height already tracks vh. */
+  @media (max-height:880px){
+    .hero h1{font-size:clamp(2.1rem,1rem+2.4vw,3.9rem)}
+    .hero .sub{font-size:clamp(1rem,.9rem+.3vw,1.14rem);margin-bottom:1.3rem}
+    .eyebrow{margin-bottom:1rem}
+    .inner{gap:clamp(1.6rem,3vw,2.8rem)}
+  }
+  @media (max-height:740px){
+    .hero h1{font-size:clamp(2rem,1rem+2vw,3.3rem)}
   }
 
   .eyebrow{
@@ -78,7 +92,8 @@ import RefactorDemo from './RefactorDemo.astro';
   /* ---------- scroll cue: "there is more below" ---------- */
   .scrollcue{
     display:flex;flex-direction:column;align-items:center;gap:.6rem;
-    width:max-content;margin:.6rem auto 0;
+    position:absolute;left:50%;bottom:clamp(1.6rem,4vh,2.8rem);
+    transform:translateX(-50%);width:max-content;
     color:var(--muted);font-family:var(--mono);font-size:.68rem;
     letter-spacing:.18em;text-transform:uppercase;
     transition:opacity .4s var(--ease),transform .4s var(--ease),color .2s var(--ease);
@@ -98,7 +113,7 @@ import RefactorDemo from './RefactorDemo.astro';
     100%{opacity:0;transform:translateY(9px)}
   }
   /* fades out once the visitor has started scrolling */
-  .scrollcue.gone{opacity:0;transform:translateY(8px);pointer-events:none}
+  .scrollcue.gone{opacity:0;transform:translateX(-50%) translateY(8px);pointer-events:none}
   /* pointless on mobile: people scroll instinctively, and the hero is already
      taller than the viewport there */
   @media (max-width:640px){.scrollcue{display:none}}

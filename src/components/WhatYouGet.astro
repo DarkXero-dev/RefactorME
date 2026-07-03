@@ -58,15 +58,15 @@ const stroke = { blue: '#4f8cff', violet: '#9b6cff', cyan: '#3fc6d8' };
 
         <div class="gauge">
           <svg class="ring" width="92" height="92" viewBox="0 0 92 92" aria-hidden="true">
-            <circle cx="46" cy="46" r="38" fill="none" stroke="#1f2a3d" stroke-width="9"/>
+            <circle class="tr" cx="46" cy="46" r="38" fill="none" stroke="#1f2a3d" stroke-width="9"/>
             <circle cx="46" cy="46" r="38" fill="none" stroke="url(#gaugeGrad)" stroke-width="9" stroke-linecap="round" stroke-dasharray="238.7" stroke-dashoffset="14" transform="rotate(-90 46 46)"/>
             <defs>
               <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0" stop-color="#4f8cff"/><stop offset="0.5" stop-color="#3fc6d8"/><stop offset="1" stop-color="#9b6cff"/>
               </linearGradient>
             </defs>
-            <text x="46" y="50" text-anchor="middle" fill="#e8eef8" font-size="20" font-weight="800" font-family="Schibsted Grotesk,sans-serif">94</text>
-            <text x="46" y="64" text-anchor="middle" fill="#8b97ad" font-size="8.5" font-family="ui-monospace,monospace">SCORE</text>
+            <text class="num" x="46" y="50" text-anchor="middle" fill="#e8eef8" font-size="20" font-weight="800" font-family="Schibsted Grotesk,sans-serif">94</text>
+            <text class="lbl" x="46" y="64" text-anchor="middle" fill="#8b97ad" font-size="8.5" font-family="ui-monospace,monospace">SCORE</text>
           </svg>
           <div class="gtext">
             <div class="k">Overall site health</div>
@@ -106,6 +106,10 @@ const stroke = { blue: '#4f8cff', violet: '#9b6cff', cyan: '#3fc6d8' };
 
   .gauge{display:flex;align-items:center;gap:1.1rem;background:linear-gradient(180deg,var(--panel),var(--panel-deep));border:1px solid var(--line);border-radius:16px;padding:1.1rem}
   .gauge .ring{flex:0 0 auto}
+  /* theme-able gauge parts (CSS overrides the SVG presentation attributes) */
+  .ring .tr{stroke:var(--track)}
+  .ring .num{fill:var(--text)}
+  .ring .lbl{fill:var(--muted)}
   .gtext .k{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
   .gtext .v{font-size:1.4rem;font-weight:800;letter-spacing:-.02em;margin-top:.25rem}
   .gtext .d{font-size:.78rem;color:var(--muted);margin-top:.25rem}

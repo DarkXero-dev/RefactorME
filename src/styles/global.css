@@ -23,6 +23,12 @@
   --line:#222c3f;
   --line-2:#2c374d;
 
+  /* chrome darks that used to be hardcoded (now theme-able) */
+  --track:#1f2a3d;   /* progress / meter / gauge track */
+  --stage:#0c111b;   /* demo card inset behind the before/after mock */
+  --inset:#0a0c12;   /* sample-thumb backdrop while it loads */
+  --chrome:15,20,32; /* RGB channels for the frosted topbar / mobile menu */
+
   --grad:linear-gradient(135deg, var(--blue), var(--violet));
   --grad-tri:linear-gradient(120deg, var(--blue), var(--cyan) 55%, var(--violet));
 
@@ -37,6 +43,37 @@
   --radius-lg:20px;
   --ease:cubic-bezier(.2,.7,.2,1);
   --shadow:0 30px 70px rgba(0,0,0,.45);
+
+  color-scheme:dark;
+}
+
+/* ---------- light theme: soft cool slate (not stark white) ----------
+   Dark stays the default (bare :root). Flipping data-theme="light" on <html>
+   overrides the tokens, so every component that reads var(--...) adapts. */
+:root[data-theme="light"]{
+  --base:#e9edf4;
+  --panel:#f7f9fd;
+  --panel-2:#eef2f9;
+  --panel-deep:#f1f4fa;
+
+  --blue:#3b7bff;
+  --violet:#7a4fe0;
+  --cyan:#1497a9;
+
+  --text:#1b2434;
+  --soft:#38435a;
+  --muted:#5c6678;
+  --line:#d5dbe8;
+  --line-2:#c3ccdd;
+
+  --track:#d9e0ec;
+  --stage:#e4e9f2;
+  --inset:#dfe4ee;
+  --chrome:233,237,244;
+
+  --shadow:0 24px 60px rgba(30,50,90,.14);
+
+  color-scheme:light;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -82,6 +119,16 @@ p{
 }
 
 ::selection{background:rgba(79,140,255,.28);color:#fff}
+
+/* light theme: softer, cooler accent glows and readable selection */
+:root[data-theme="light"] body{
+  background:
+    radial-gradient(900px 500px at 85% -10%, rgba(59,123,255,.10), transparent 60%),
+    radial-gradient(700px 500px at -5% 25%, rgba(122,79,224,.08), transparent 55%),
+    var(--base);
+  background-attachment:fixed;
+}
+:root[data-theme="light"] ::selection{background:rgba(59,123,255,.2);color:#0d1b3d}
 
 :focus-visible{outline:2.5px solid var(--blue);outline-offset:3px;border-radius:6px}
 

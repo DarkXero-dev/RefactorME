@@ -43,6 +43,16 @@ const jsonLd = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!-- set the saved theme before first paint so there is no flash. Dark is default. -->
+    <script is:inline>
+      (function () {
+        try {
+          if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.dataset.theme = 'light';
+          }
+        } catch (e) {}
+      })();
+    </script>
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#0f1420" />
     <meta name="color-scheme" content="dark" />

@@ -1,4 +1,13 @@
 ---
+// Contact form delivery via Web3Forms (https://web3forms.com) - a free
+// form-to-email relay, so no backend is needed on this static site.
+//
+// SETUP: paste your Web3Forms access key below (get it free by entering
+// info@techxero.com at web3forms.com; the key arrives by email). Enquiries
+// then land in that inbox. It can also be supplied at build time via
+// PUBLIC_WEB3FORMS_KEY. Until a key is set, the form falls back to opening
+// the visitor's own email app addressed to info@techxero.com.
+const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '5adafc4e-101f-4347-9e08-de0a7c998935';
 ---
 
 <section id="contact">
@@ -8,10 +17,12 @@
         <span class="tag">get in touch</span>
         <h2>Ready when <span class="grad">you are</span>.</h2>
       </div>
-      <p>Tell us what you have and what you want. We take it from there.</p>
+      <p>Tell us what you've got and what you want done. We'll come back with a plan and a price.</p>
     </div>
 
-    <form class="panel cform reveal" novalidate>
+    <form class="panel cform reveal" novalidate data-key={WEB3FORMS_KEY}>
+      <!-- honeypot: bots fill this; real users never see it. Web3Forms drops it. -->
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
       <div class="row two">
         <label class="field">
           <span class="lbl">Name <em>*</em></span>
@@ -33,6 +44,11 @@
         <textarea name="message" rows="5" required placeholder="What do you have, and what do you want done?"></textarea>
       </label>
 
+      <label class="field hcheck">
+        <span class="lbl">Quick check: <em class="q">what is three plus four?</em></span>
+        <input name="human" type="text" inputmode="numeric" autocomplete="off" required placeholder="Your answer" />
+      </label>
+
       <p class="formnote" role="alert" hidden></p>
 
       <div class="actions">
@@ -44,21 +60,62 @@
       </div>
     </form>
 
-    <p class="credit">Site Built by <span class="who">DarkXero</span> with <span class="heart" aria-label="love">&#10084;&#65039;</span></p>
+    <p class="credit">Yes, this site was <span class="who">refactored</span> too.</p>
   </div>
 </section>
 
 <script>
+  const TO = 'info@techxero.com';
   const form = document.querySelector<HTMLFormElement>('.cform');
   if (form) {
     const note = form.querySelector<HTMLElement>('.formnote')!;
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const key = form.dataset.key || '';
     const show = (msg: string, ok = false) => {
       note.textContent = msg;
       note.classList.toggle('ok', ok);
       note.hidden = false;
     };
 
-    form.addEventListener('submit', (e) => {
+    // ---- human check: a small "what is X plus Y?" question, generated fresh
+    // each load (so the answer is not sitting static in the page source). The
+    // operands are spelled out; the visitor may answer in digits or words. ----
+    const WORDS = ['zero','one','two','three','four','five','six','seven','eight','nine','ten',
+      'eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen'];
+    const qEl = form.querySelector<HTMLElement>('.hcheck .q');
+    const humanInput = form.querySelector<HTMLInputElement>('input[name="human"]');
+    let expected = 7;
+    if (qEl) {
+      const a = 2 + Math.floor(Math.random() * 6); // 2..7
+      const b = 2 + Math.floor(Math.random() * 6); // 2..7
+      expected = a + b;
+      qEl.textContent = `what is ${WORDS[a]} plus ${WORDS[b]}?`;
+    }
+
+    // ---- profanity guard: block obviously vulgar messages before they send.
+    // Word-boundary matched so normal words (e.g. "assess", "class") are safe.
+    // Adjust the list to taste. ----
+    const BAD = /\b(fuck(?:s|ing|er|ed)?|shit(?:s|ty|ted)?|bitch(?:es|ing)?|cunt|asshole|dickhead|bastard|slut|whore|faggot|fag|nigger|nigga|retard|wanker|bollocks|motherfucker|cocksucker|twat|prick)\b/i;
+
+    // fallback for when no Web3Forms key is set yet: open the visitor's mail app
+    const mailtoFallback = (name: string, company: string, url: string, message: string) => {
+      const lines = [
+        `Name: ${name}`,
+        company ? `Company: ${company}` : null,
+        `Site URL: ${url}`,
+        '',
+        message,
+      ].filter((l) => l !== null);
+      const href =
+        `mailto:${TO}?subject=` +
+        encodeURIComponent(`Refactor request from ${name}`) +
+        '&body=' +
+        encodeURIComponent(lines.join('\n'));
+      show('Opening your email app with the details filled in.', true);
+      window.location.href = href;
+    };
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const data = new FormData(form);
       const name = ((data.get('name') as string) || '').trim();
@@ -71,22 +128,55 @@
         return;
       }
 
-      const lines = [
-        `Name: ${name}`,
-        company ? `Company: ${company}` : null,
-        `Site URL: ${url}`,
-        '',
-        message,
-      ].filter((l) => l !== null);
+      // human check
+      const humanAns = ((data.get('human') as string) || '').trim().toLowerCase();
+      if (humanAns !== String(expected) && humanAns !== WORDS[expected]) {
+        show('That quick check is not right. Give it another go.');
+        humanInput?.focus();
+        return;
+      }
 
-      const href =
-        'mailto:hello@refaktor.me?subject=' +
-        encodeURIComponent(`Refactor request from ${name}`) +
-        '&body=' +
-        encodeURIComponent(lines.join('\n'));
+      // profanity guard
+      if (BAD.test(message) || BAD.test(name) || BAD.test(company)) {
+        show('Please keep it civil, and I will happily help.');
+        return;
+      }
 
-      show('Opening your email app with the details filled in.', true);
-      window.location.href = href;
+      if (!key) {
+        mailtoFallback(name, company, url, message);
+        return;
+      }
+
+      submit.disabled = true;
+      show('Sending your message...', true);
+      try {
+        // Submit as FormData (multipart), NOT JSON: a JSON content-type triggers
+        // a CORS preflight that Web3Forms' endpoint does not answer, which blocks
+        // the request. multipart is CORS-safelisted, so no preflight, and it is
+        // Web3Forms' own supported submission format.
+        const fd = new FormData(form);
+        fd.delete('human'); // internal check only, not part of the enquiry
+        fd.append('access_key', key);
+        fd.append('subject', `Refactor request from ${name}`);
+        fd.append('from_name', name);
+        if (!company) fd.set('company', '(not given)');
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: fd,
+        });
+        const out = (await res.json()) as { success?: boolean; message?: string };
+        if (out.success) {
+          show('Thanks. Your message is on its way. I will get back to you shortly.', true);
+          form.reset();
+        } else {
+          show(out.message || `Something went wrong. Please email ${TO} directly.`);
+        }
+      } catch {
+        show(`Could not send just now. Please email ${TO} directly.`);
+      } finally {
+        submit.disabled = false;
+      }
     });
 
     form.addEventListener('reset', () => {

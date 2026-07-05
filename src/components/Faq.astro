@@ -20,7 +20,7 @@ const faqs = [
   ],
   [
     'What do you need from me to start?',
-    'Your current site or content, and a sentence or two on what you want done. That is enough to get a preview and a price back to you.',
+    'At first, just your site link so I can assess it and give you a price. Once we agree, I will need your site files, where it is hosted, and the login credentials, so I can get to work.',
   ],
   [
     'Who actually does the work?',
@@ -29,6 +29,10 @@ const faqs = [
   [
     'How long does it take?',
     'Most sites go live in about 5 to 7 days once I have your content. Small tweaks are faster. I tell you the timeline up front.',
+  ],
+  [
+    'What about maintenance after the site is live?',
+    'By default, none to worry about. Your rebuilt site is static and low-maintenance, so once it is handed over it is yours and it just keeps working. If you would rather I handle future updates, that is an optional add-on for a small fee we agree on separately, never bundled into the build.',
   ],
   [
     'How much does it cost?',
@@ -88,7 +92,7 @@ const faqJsonLd = {
   }
   .faq summary::-webkit-details-marker{display:none}
   .faq summary:hover .q{color:#fff}
-  .faq .q{flex:1}
+  .faq .q{flex:1;text-wrap:balance}
   /* plus / minus indicator */
   .ind{position:relative;flex:0 0 auto;width:18px;height:18px}
   .ind::before,.ind::after{

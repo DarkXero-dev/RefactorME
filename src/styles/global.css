@@ -116,6 +116,8 @@ p{
   text-justify:inter-word;
   -webkit-hyphens:auto;
   hyphens:auto;
+  /* avoid a single short word widowed on the last line */
+  text-wrap:pretty;
 }
 
 ::selection{background:rgba(79,140,255,.28);color:#fff}
@@ -164,6 +166,9 @@ h2{
   line-height:1.05;
   color:var(--text);
 }
+/* balance wrapped headings + card titles so a lone word never drops to its own
+   line (worst on mobile). Harmless where the text already fits one line. */
+h1,h2,h3,h4{text-wrap:balance}
 h2 .grad{
   background:var(--grad-tri);
   -webkit-background-clip:text;background-clip:text;color:transparent;
@@ -193,6 +198,8 @@ h2 .grad{
 /* ---------- contact form ---------- */
 .cform{padding:clamp(1.4rem,4vw,2.2rem);display:grid;gap:1.1rem}
 .cform .row.two{display:grid;gap:1.1rem}
+/* honeypot: kept out of view and out of the tab order, not display:none */
+.cform .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
 @media (min-width:560px){.cform .row.two{grid-template-columns:1fr 1fr}}
 .cform .field{display:flex;flex-direction:column;gap:.45rem}
 .cform .lbl{font-size:.82rem;font-weight:600;color:var(--soft);letter-spacing:.01em}
@@ -230,7 +237,6 @@ h2 .grad{
 #contact .credit .who{
   background:var(--grad-tri);-webkit-background-clip:text;background-clip:text;color:transparent;
 }
-#contact .credit .heart{color:#e2484d}
 @media (max-width:420px){
   .cform .actions{flex-direction:column-reverse}
   .cform .actions .btn{width:100%;justify-content:center}

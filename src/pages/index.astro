@@ -2,13 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import WhatWeFix from '../components/WhatWeFix.astro';
-import PreviewGenerator from '../components/PreviewGenerator.astro';
+import SitePainPicker from '../components/SitePainPicker.astro';
 import WhatYouGet from '../components/WhatYouGet.astro';
 import HowItWorks from '../components/HowItWorks.astro';
 import WhatWeBuild from '../components/WhatWeBuild.astro';
 import SamplesSection from '../components/SamplesSection.astro';
 import Pricing from '../components/Pricing.astro';
 import Faq from '../components/Faq.astro';
+import Trust from '../components/Trust.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 import ProgressRail from '../components/ProgressRail.astro';
@@ -29,7 +30,7 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
       </a>
       <nav class="nav">
         <div class="links">
-          <a href="#try">Try it</a>
+          <a href="#rebuild">Why?</a>
           <a href="#samples">Samples</a>
           <a href="#pricing">Pricing</a>
           <a href="#faq">FAQ</a>
@@ -53,7 +54,7 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
         <span class={`pill ${online ? 'on' : 'off'} m-pill`}>
           <span class="dot" aria-hidden="true"></span>{online ? 'online' : 'offline'}
         </span>
-        <a href="#try">Try it</a>
+        <a href="#rebuild">Why?</a>
         <a href="#samples">Samples</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
@@ -64,7 +65,7 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
 
   <main id="top">
     <Hero />
-    <PreviewGenerator />
+    <SitePainPicker />
     <WhatWeFix />
     <WhatYouGet />
     <HowItWorks />
@@ -72,6 +73,7 @@ const online = import.meta.env.PUBLIC_SITE_ONLINE === 'true';
     <SamplesSection />
     <Pricing />
     <Faq />
+    <Trust />
     <Contact />
   </main>
 

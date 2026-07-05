@@ -36,6 +36,9 @@ jobs:
 
       - name: Build site
         run: npm run build
+        env:
+          # Site is live: show the green "online" status. Set to 'false' to go dark.
+          PUBLIC_SITE_ONLINE: 'true'
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

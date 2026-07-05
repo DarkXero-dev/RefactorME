@@ -1,0 +1,69 @@
+---
+// Trust band. Sits right before the contact form, the moment a visitor decides
+// whether to hand over their site files and logins. Backs the headline with
+// three concrete, checkable promises. Mirrors the WhatYouGet layout (sec-head +
+// a panel of icon rows) so it reads as part of the same system.
+const rows = [
+  ['Your logins stay yours', 'They do one thing: let me work. Change them the moment the job is done.', 'blue',
+    '<rect x="3" y="10.5" width="18" height="10.5" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 10.5V7a5 5 0 0 1 10 0v3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="15.5" r="1.4" fill="currentColor"/>'],
+  ['Direct, no middlemen', 'You deal with the builder, start to finish. Nothing is outsourced or passed around.', 'violet',
+    '<circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'],
+  ['Gone after handoff', 'Your files and credentials are deleted once the work is done. Never shared, never reused.', 'cyan',
+    '<path d="M4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'],
+];
+---
+
+<section id="trust">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="tag">trust</span>
+        <h2>Trust is <span class="grad">earned</span>, not given.</h2>
+      </div>
+      <p>You are about to hand over your site. Here is how I keep that safe.</p>
+    </div>
+
+    <div class="tgrid reveal">
+      {rows.map(([rt, rd, color, svg]) => (
+        <article class={`panel tcard ${color}`}>
+          <span class={`ic ${color}`} aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" set:html={svg} />
+          </span>
+          <h3 class="rt">{rt}</h3>
+          <p class="rd">{rd}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tgrid{display:grid;gap:1.1rem}
+  @media (min-width:720px){.tgrid{grid-template-columns:repeat(3,1fr)}}
+
+  .tcard{
+    position:relative;overflow:hidden;
+    padding:clamp(1.3rem,3vw,1.6rem);
+    display:flex;flex-direction:column;gap:.75rem;
+    transition:transform .18s var(--ease), border-color .18s var(--ease);
+  }
+  .tcard:hover{transform:translateY(-3px)}
+  .tcard.blue:hover{border-color:rgba(79,140,255,.45)}
+  .tcard.violet:hover{border-color:rgba(155,108,255,.45)}
+  .tcard.cyan:hover{border-color:rgba(63,198,216,.45)}
+  /* a faint accent glow in the corner, tinted per card */
+  .tcard::after{
+    content:"";position:absolute;top:-30%;right:-20%;width:55%;height:90%;
+    pointer-events:none;opacity:.5;
+  }
+  .tcard.blue::after{background:radial-gradient(circle,rgba(79,140,255,.16),transparent 62%)}
+  .tcard.violet::after{background:radial-gradient(circle,rgba(155,108,255,.16),transparent 62%)}
+  .tcard.cyan::after{background:radial-gradient(circle,rgba(63,198,216,.16),transparent 62%)}
+
+  .ic{position:relative;z-index:1;flex:0 0 auto;width:46px;height:46px;border-radius:13px;display:grid;place-items:center}
+  .ic.blue{background:rgba(79,140,255,.1);border:1px solid rgba(79,140,255,.25);color:var(--blue)}
+  .ic.violet{background:rgba(155,108,255,.1);border:1px solid rgba(155,108,255,.25);color:var(--violet)}
+  .ic.cyan{background:rgba(63,198,216,.1);border:1px solid rgba(63,198,216,.25);color:var(--cyan)}
+  .rt{position:relative;z-index:1;font-weight:700;font-size:1.02rem;letter-spacing:-.01em}
+  .rd{position:relative;z-index:1;color:var(--muted);font-size:.87rem;line-height:1.55;text-align:left;-webkit-hyphens:none;hyphens:none}
+</style>

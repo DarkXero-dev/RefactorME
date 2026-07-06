@@ -34,6 +34,11 @@ const rows = [
         </article>
       ))}
     </div>
+
+    <p class="nda-note reveal">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Want it in writing? An NDA is available on request, just ask before we start.
+    </p>
   </div>
 </section>
 
@@ -66,4 +71,18 @@ const rows = [
   .ic.cyan{background:rgba(63,198,216,.1);border:1px solid rgba(63,198,216,.25);color:var(--cyan)}
   .rt{position:relative;z-index:1;font-weight:700;font-size:1.02rem;letter-spacing:-.01em}
   .rd{position:relative;z-index:1;color:var(--muted);font-size:.87rem;line-height:1.55;text-align:left;-webkit-hyphens:none;hyphens:none}
+
+  .nda-note{
+    display:flex;align-items:center;gap:.55rem;
+    width:fit-content;max-width:100%;
+    margin:1.3rem auto 0;
+    padding:.55rem 1.05rem;
+    border-radius:999px;
+    background:rgba(52,199,120,.12);
+    border:1px solid rgba(52,199,120,.38);
+    color:var(--text);font-weight:500;
+    text-align:center;text-wrap:balance;
+    font-size:.85rem;line-height:1.45;
+  }
+  .nda-note svg{flex:0 0 auto;color:#2fbf6f}
 </style>

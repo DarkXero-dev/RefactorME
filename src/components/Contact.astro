@@ -3,10 +3,10 @@
 // form-to-email relay, so no backend is needed on this static site.
 //
 // SETUP: paste your Web3Forms access key below (get it free by entering
-// info@techxero.com at web3forms.com; the key arrives by email). Enquiries
+// steve@refaktor.me at web3forms.com; the key arrives by email). Enquiries
 // then land in that inbox. It can also be supplied at build time via
 // PUBLIC_WEB3FORMS_KEY. Until a key is set, the form falls back to opening
-// the visitor's own email app addressed to info@techxero.com.
+// the visitor's own email app addressed to steve@refaktor.me.
 const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '5adafc4e-101f-4347-9e08-de0a7c998935';
 ---
 
@@ -65,7 +65,7 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '5adafc4e-101f-434
 </section>
 
 <script>
-  const TO = 'info@techxero.com';
+  const TO = 'steve@refaktor.me';
   const form = document.querySelector<HTMLFormElement>('.cform');
   if (form) {
     const note = form.querySelector<HTMLElement>('.formnote')!;

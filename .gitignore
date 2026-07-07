@@ -19,5 +19,5 @@ dist/
 *.log
 push.sh
 
-# private business docs (NDA / confidentiality templates)
-Confidentiality-and-Data-Handling.md
+# private business docs (work agreement / NDA templates)
+Work-Agreement.md

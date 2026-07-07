@@ -10,4 +10,9 @@ export default defineConfig({
   base: '/',
   output: 'static',
   trailingSlash: 'ignore',
+  vite: {
+    server: {
+      allowedHosts: ['gay-temperatures-armstrong-recording.trycloudflare.com'],
+    },
+  },
 });

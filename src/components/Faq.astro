@@ -2,9 +2,9 @@
 // Expandable FAQ. Native <details>/<summary>: accessible, keyboard-friendly,
 // zero JS, no bloat. Same Q/A feed the FAQPage structured data below for
 // rich results in search.
-// Order note: Pricing sits directly above this section, so we do NOT lead with
-// cost (it reads as "pricing is missing" and is redundant). Lead with the things
-// Pricing does not answer; cost sits last and just confirms the range.
+// Six questions, kept tight on purpose: the things a buyer needs settled before
+// getting in touch. Anything already answered elsewhere on the page (turnaround,
+// who does the work, maintenance) is left to that section rather than repeated.
 const faqs = [
   [
     'Do I keep my domain and hosting?',
@@ -15,32 +15,20 @@ const faqs = [
     'That is fine. Small jobs are welcome and get the same quote-first treatment. Tell me what you need and I will price just that.',
   ],
   [
-    "What if I don't have a site yet?",
-    'Refactoring existing sites is the main job, but if you are starting from scratch I can sometimes build one for you, when it is a good fit and I have the room. Tell me about the product or service and how you want it to look, and I will let you know.',
-  ],
-  [
-    'What is the difference between a refactor and a redesign?',
-    'A refactor keeps your site but rebuilds it clean, fast, and mobile-friendly. A redesign changes how it looks. I do both, so just say which you are after.',
-  ],
-  [
-    'What do you need from me to start?',
-    'At first, just your site link so I can assess it and give you a price. Once we agree, I will need your site files, where it is hosted, and the login credentials, so I can get to work.',
-  ],
-  [
-    'Who actually does the work?',
-    'You deal directly with the person who builds your site, start to finish. No agency, no ticket queue, no handoffs.',
-  ],
-  [
-    'How long does it take?',
-    'Most sites go live in about 5 to 7 days once I have your content. Small tweaks are faster. I tell you the timeline up front.',
-  ],
-  [
-    'What about maintenance after the site is live?',
-    'Often, little to none. If it is a landing page or a static build done right, it should just keep running with barely any upkeep, and once it is handed over it is yours. Some jobs do need the odd update, and if you would rather I handle those, that is an optional add-on for a small fee we agree on separately, never bundled into the build.',
-  ],
-  [
     'How much does it cost?',
-    'Most projects land between €150 and €450, depending on what is involved. You get the exact price before any work starts. No packages, no surprises.',
+    "Most projects start at €150. From there it comes down to scope: more pages, more features, or more involved work means a higher price, and larger builds can run well beyond that. Whatever it is, you get the exact price up front before any work starts, no surprises.",
+  ],
+  [
+    'How does payment work?',
+    "Full payment is due before work begins. For a fixed-price, short-turnaround project like this, that's standard practice, it's what makes the fixed price possible in the first place. Scope, timeline, and revisions are all agreed in the signed work agreement before that payment is made, so there are no surprises on either side.",
+  ],
+  [
+    'How many revisions are included?',
+    "Two rounds of revisions are included in every quote, that's normally more than enough once you've seen the first build. Anything beyond that is quick to do and priced separately, always agreed before it happens.",
+  ],
+  [
+    'Have you done this before?',
+    '<b class="rk">Refaktor</b> is new. In practice that means you get me directly on your project, not an account manager and a support ticket, and pricing that reflects a service getting started, not inflated agency rates.',
   ],
 ];
 
@@ -50,7 +38,7 @@ const faqJsonLd = {
   mainEntity: faqs.map(([q, a]) => ({
     '@type': 'Question',
     name: q,
-    acceptedAnswer: { '@type': 'Answer', text: a },
+    acceptedAnswer: { '@type': 'Answer', text: a.replace(/<[^>]+>/g, '') },
   })),
 };
 ---
@@ -72,7 +60,7 @@ const faqJsonLd = {
             <span class="q">{q}</span>
             <span class="ind" aria-hidden="true"></span>
           </summary>
-          <div class="a"><p>{a}</p></div>
+          <div class="a"><p set:html={a}></p></div>
         </details>
       ))}
     </div>

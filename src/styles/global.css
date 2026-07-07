@@ -173,6 +173,12 @@ h2 .grad{
   background:var(--grad-tri);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
+/* brand word in body copy: bold + the logo blue gradient */
+.rk{
+  font-weight:700;
+  background:linear-gradient(90deg,#4f8cff,#3fc6d8);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
 .sec-head p{color:var(--muted);font-size:.9rem;max-width:40ch}
 
 /* panel: the recurring dashboard surface */

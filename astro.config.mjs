@@ -10,6 +10,10 @@ export default defineConfig({
   base: '/',
   output: 'static',
   trailingSlash: 'ignore',
+  // Astro 7 changed compressHTML default to 'jsx', which strips whitespace
+  // between inline elements (collapsed "including<a>X</a>and"). true keeps
+  // minification without eating significant spaces in prose.
+  compressHTML: true,
   vite: {
     server: {
       allowedHosts: ['gay-temperatures-armstrong-recording.trycloudflare.com'],

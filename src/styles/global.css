@@ -7,6 +7,17 @@
    before/after preview of a real site being rebuilt.
    ============================================================ */
 
+/* Self-hosted variable font: one 24KB request from our own origin instead of
+   a render-blocking Google Fonts stylesheet plus two preconnect handshakes.
+   Subset to Latin + the only two extras the site uses (· and €). */
+@font-face{
+  font-family:"Schibsted Grotesk";
+  src:url("/fonts/schibsted-grotesk-var.woff2") format("woff2-variations");
+  font-weight:400 900;
+  font-style:normal;
+  font-display:swap;
+}
+
 :root{
   --base:#0f1420;
   --panel:#161d2b;

@@ -17,7 +17,7 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '5adafc4e-101f-434
         <span class="tag">get in touch</span>
         <h2>Ready when <span class="grad">you are</span>.</h2>
       </div>
-      <p>Tell me what you've got and what you want done. I'll come back with a plan and a price.</p>
+      <p>Tell me what you've got and what you want done. I'll come back with a plan and a price, not a sales call.</p>
     </div>
 
     <form class="panel cform reveal" novalidate data-key={WEB3FORMS_KEY}>
@@ -29,8 +29,8 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '5adafc4e-101f-434
           <input name="name" type="text" required autocomplete="name" placeholder="Your name" />
         </label>
         <label class="field">
-          <span class="lbl">Company name <i>(if applicable)</i></span>
-          <input name="company" type="text" autocomplete="organization" placeholder="Optional" />
+          <span class="lbl">Shop or project name <i>(optional)</i></span>
+          <input name="project" type="text" autocomplete="organization" placeholder="Optional" />
         </label>
       </div>
 
@@ -98,10 +98,10 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '5adafc4e-101f-434
     const BAD = /\b(fuck(?:s|ing|er|ed)?|shit(?:s|ty|ted)?|bitch(?:es|ing)?|cunt|asshole|dickhead|bastard|slut|whore|faggot|fag|nigger|nigga|retard|wanker|bollocks|motherfucker|cocksucker|twat|prick)\b/i;
 
     // fallback for when no Web3Forms key is set yet: open the visitor's mail app
-    const mailtoFallback = (name: string, company: string, url: string, message: string) => {
+    const mailtoFallback = (name: string, project: string, url: string, message: string) => {
       const lines = [
         `Name: ${name}`,
-        company ? `Company: ${company}` : null,
+        project ? `Shop or project: ${project}` : null,
         `Site URL: ${url}`,
         '',
         message,
@@ -119,7 +119,7 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '5adafc4e-101f-434
       e.preventDefault();
       const data = new FormData(form);
       const name = ((data.get('name') as string) || '').trim();
-      const company = ((data.get('company') as string) || '').trim();
+      const project = ((data.get('project') as string) || '').trim();
       const url = ((data.get('url') as string) || '').trim();
       const message = ((data.get('message') as string) || '').trim();
 
@@ -146,13 +146,13 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '5adafc4e-101f-434
       }
 
       // profanity guard
-      if (BAD.test(message) || BAD.test(name) || BAD.test(company)) {
+      if (BAD.test(message) || BAD.test(name) || BAD.test(project)) {
         show('Please keep it civil, and I will happily help.');
         return;
       }
 
       if (!key) {
-        mailtoFallback(name, company, url, message);
+        mailtoFallback(name, project, url, message);
         return;
       }
 
@@ -168,7 +168,7 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '5adafc4e-101f-434
         fd.append('access_key', key);
         fd.append('subject', `Refactor request from ${name}`);
         fd.append('from_name', name);
-        if (!company) fd.set('company', '(not given)');
+        if (!project) fd.set('project', '(not given)');
         const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { Accept: 'application/json' },

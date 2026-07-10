@@ -19,6 +19,8 @@ dist/
 *.log
 push.sh
 
-# private business docs (work agreement / NDA templates)
-Work-Agreement.md
-refaktor-service-agreement.pdf
+# private docs (scope-and-price note) and the script that generates them.
+# Negated for public/ so a PDF ever served by the site stays tracked.
+*.pdf
+!public/**/*.pdf
+make-scope-note.py

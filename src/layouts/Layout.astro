@@ -9,8 +9,8 @@ interface Props {
 
 const {
   title = "Refaktor.me, small sites rebuilt clean, fast, and done right",
-  description = 'Refaktor.me rebuilds tired small business sites, hobby pages, and single-product sites. Faster, cleaner, mobile-friendly, and actually good.',
-  image = '/og.webp',
+  description = 'Refaktor.me rebuilds tired hobby pages, single-product sites, and the sites of family-run shops and restaurants. Faster, cleaner, happy on a phone, and no longer stuck in 2010.',
+  image = '/og-refaktor.webp',
 } = Astro.props;
 
 // Absolute URLs for canonical + social cards (Astro.site = https://refaktor.me).
@@ -18,22 +18,23 @@ const site = Astro.site ?? new URL('https://refaktor.me');
 const canonical = new URL(Astro.url.pathname, site).href;
 const ogImage = new URL(image, site).href;
 
-// Structured data: a one-person website-refactoring service.
+// Structured data: a one-person website-refactoring service. Service (not
+// ProfessionalService/Organization) because Refaktor is a person, not a
+// registered entity.
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
+  '@type': 'Service',
   name: 'Refaktor.me',
   description,
   url: site.href,
   image: ogImage,
-  priceRange: 'From €150',
   areaServed: 'Worldwide',
   serviceType: 'Website refactoring and rebuilding',
-  founder: { '@type': 'Person', name: 'DarkXero' },
-  makesOffer: {
+  provider: { '@type': 'Person', name: 'DarkXero' },
+  offers: {
     '@type': 'Offer',
-    description: 'Refactor and rebuild of small business, hobby, and single-product websites',
-    priceCurrency: 'EUR',
+    description: 'Refactor and rebuild of hobby, single-product, and family-run shop websites',
+    priceSpecification: { '@type': 'PriceSpecification', minPrice: 150, priceCurrency: 'EUR' },
   },
 };
 ---
@@ -55,7 +56,7 @@ const jsonLd = {
     </script>
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#0f1420" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="dark light" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="DarkXero" />
@@ -72,10 +73,10 @@ const jsonLd = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content="Refaktor.me, a live before and after site rebuild" />
+    <meta property="og:image:alt" content="Refaktor.me: your website is calling for a refactor" />
     <meta property="og:image:type" content="image/webp" />
-    <meta property="og:image:width" content="1390" />
-    <meta property="og:image:height" content="1103" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
@@ -86,11 +87,12 @@ const jsonLd = {
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/fonts/schibsted-grotesk-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
   </head>
   <body>
